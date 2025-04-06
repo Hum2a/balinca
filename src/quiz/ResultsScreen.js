@@ -14,17 +14,21 @@ const ResultsScreen = ({ teams, quizComplete, onNextQuestion }) => {
   useEffect(() => {
     if (!teams || teams.length === 0) return;
 
-    // First sort the teams
+    // First sort the teams by points in descending order
     const sortedTeams = [...teams].sort((a, b) => b.points - a.points);
     
-    // Then calculate ranks
+    let currentRank = 1;
+    let prevPoints = null;
+    
+    // Then calculate ranks, handling ties correctly
     const ranked = sortedTeams.map((team, index) => {
-      // If it's the first team or has different points than the previous team
-      if (index === 0 || team.points !== sortedTeams[index - 1].points) {
-        return { ...team, rank: index + 1 };
+      // If this is the first team or has different points than previous team
+      if (index === 0 || team.points !== prevPoints) {
+        currentRank = index + 1;
       }
-      // If it has the same points as the previous team, use the same rank
-      return { ...team, rank: sortedTeams[index - 1].rank };
+      
+      prevPoints = team.points;
+      return { ...team, rank: currentRank };
     });
 
     setRankedTeams(ranked);

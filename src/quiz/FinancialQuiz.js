@@ -110,6 +110,7 @@ const FinancialQuiz = () => {
             onNextQuestion={() => {
               if (currentQuestionIndex === 9) {
                 setQuizComplete(true);
+                nextQuestion();
               } else {
                 setShowResults(true);
               }

@@ -3,6 +3,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { Chart } from 'chart.js/auto';
 import { getFirestore, collection, getDocs, doc, getDoc, setDoc } from 'firebase/firestore';
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { app, db, auth } from '../../firebase/initFirebase';
 import '../styles/Simulation.css';
 import lifesmartlogo from '../../assets/icons/LifeSmartLogo.png';
 
@@ -362,6 +363,8 @@ const Simulation = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [uid, setUid] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
   const [latestSimulationIndex, setLatestSimulationIndex] = useState(null);
   const [groups, setGroups] = useState([]);
   const [simulationYears, setSimulationYears] = useState(1);
@@ -400,105 +403,147 @@ const Simulation = () => {
     setSelectedGroupIndex(null);
   };
 
+  const fetchLatestSimulationIndex = async (userId) => {
+    try {
+      const db = getFirestore();
+      const simulationsRef = collection(db, userId, "Asset Market Simulations", "Simulations");
+      const querySnapshot = await getDocs(simulationsRef);
+      return querySnapshot.empty ? 1 : querySnapshot.size;
+    } catch (error) {
+      console.error("Error fetching simulation index:", error);
+      setError("Failed to fetch simulation data. Please check your internet connection.");
+      return 1;
+    }
+  };
+
+  const fetchAssetChanges = async (userId, index) => {
+    try {
+      const db = getFirestore();
+      const docRef = doc(db, 'Quiz', 'Asset Market Simulations', 'Simulations', `Simulation ${index}`, 'Simulation Controls', 'Controls');
+      const docSnap = await getDoc(docRef);
+      if (docSnap.exists()) {
+        const data = docSnap.data();
+        setAssetChanges(data.assetChanges);
+        setSimulationYears(data.years || 1);
+      }
+    } catch (error) {
+      console.error("Error fetching asset changes:", error);
+      setError("Failed to fetch simulation data. Please check your internet connection.");
+    }
+  };
+
   useEffect(() => {
     const auth = getAuth();
-    const unsubscribe = onAuthStateChanged(auth, async (user) => {
-      if (user) {
-        setUid(user.uid);
-        
-        if (location.state) {
-          const { groups: passedGroups } = location.state;
-          const transformedGroups = passedGroups.map((group, index) => ({
-            id: group.name,
-            name: group.name,
-            icon: group.icon || AVAILABLE_ICONS[index % AVAILABLE_ICONS.length],
-            initialValues: {
-              equity: parseFloat(group.equity) || 0,
-              bonds: parseFloat(group.bonds) || 0,
-              realestate: parseFloat(group.realestate) || 0,
-              commodities: parseFloat(group.commodities) || 0,
-              other: parseFloat(group.other) || 0
-            },
-            quarterlyValues: {
-              equity: [parseFloat(group.equity) || 0],
-              bonds: [parseFloat(group.bonds) || 0],
-              realestate: [parseFloat(group.realestate) || 0],
-              commodities: [parseFloat(group.commodities) || 0],
-              other: [parseFloat(group.other) || 0]
-            },
-            totalPortfolioValues: {
-              initial: Object.values({
-                equity: parseFloat(group.equity) || 0,
-                bonds: parseFloat(group.bonds) || 0,
-                realestate: parseFloat(group.realestate) || 0,
-                commodities: parseFloat(group.commodities) || 0,
-                other: parseFloat(group.other) || 0
-              }).reduce((acc, val) => acc + val, 0),
-              quarters: [Object.values({
-                equity: parseFloat(group.equity) || 0,
-                bonds: parseFloat(group.bonds) || 0,
-                realestate: parseFloat(group.realestate) || 0,
-                commodities: parseFloat(group.commodities) || 0,
-                other: parseFloat(group.other) || 0
-              }).reduce((acc, val) => acc + val, 0)]
-            }
-          }));
-          
-          setGroups(transformedGroups);
-        }
+    setIsLoading(true);
+    setError(null);
 
-        const index = await fetchLatestSimulationIndex(user.uid);
-        setLatestSimulationIndex(index);
-        if (index) {
-          await fetchAssetChanges(user.uid, index);
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      try {
+        if (user) {
+          setUid(user.uid);
+          
+          if (location.state) {
+            const { groups: passedGroups } = location.state;
+            const transformedGroups = passedGroups.map((group, index) => ({
+              id: group.name,
+              name: group.name,
+              icon: group.icon || AVAILABLE_ICONS[index % AVAILABLE_ICONS.length],
+              initialValues: {
+                equity: parseFloat(group.equity) || 0,
+                bonds: parseFloat(group.bonds) || 0,
+                realestate: parseFloat(group.realestate) || 0,
+                commodities: parseFloat(group.commodities) || 0,
+                other: parseFloat(group.other) || 0
+              },
+              quarterlyValues: {
+                equity: [parseFloat(group.equity) || 0],
+                bonds: [parseFloat(group.bonds) || 0],
+                realestate: [parseFloat(group.realestate) || 0],
+                commodities: [parseFloat(group.commodities) || 0],
+                other: [parseFloat(group.other) || 0]
+              },
+              totalPortfolioValues: {
+                initial: Object.values({
+                  equity: parseFloat(group.equity) || 0,
+                  bonds: parseFloat(group.bonds) || 0,
+                  realestate: parseFloat(group.realestate) || 0,
+                  commodities: parseFloat(group.commodities) || 0,
+                  other: parseFloat(group.other) || 0
+                }).reduce((acc, val) => acc + val, 0),
+                quarters: [Object.values({
+                  equity: parseFloat(group.equity) || 0,
+                  bonds: parseFloat(group.bonds) || 0,
+                  realestate: parseFloat(group.realestate) || 0,
+                  commodities: parseFloat(group.commodities) || 0,
+                  other: parseFloat(group.other) || 0
+                }).reduce((acc, val) => acc + val, 0)]
+              }
+            }));
+            
+            setGroups(transformedGroups);
+          }
+
+          const index = await fetchLatestSimulationIndex(user.uid);
+          setLatestSimulationIndex(index);
+          if (index) {
+            await fetchAssetChanges(user.uid, index);
+          }
+        } else {
+          navigate('/');
         }
-      } else {
-        navigate('/');
+      } catch (error) {
+        console.error("Error in auth state change:", error);
+        setError("Failed to initialize simulation. Please check your internet connection.");
+      } finally {
+        setIsLoading(false);
       }
     });
 
     return () => unsubscribe();
   }, [navigate, location.state]);
 
-  const fetchLatestSimulationIndex = async (userId) => {
-    const db = getFirestore();
-    const simulationsRef = collection(db, userId, "Asset Market Simulations", "Simulations");
-    const querySnapshot = await getDocs(simulationsRef);
-    return querySnapshot.empty ? 1 : querySnapshot.size;
-  };
+  if (isLoading) {
+    return (
+      <div className="loading-container">
+        <div className="loading-spinner"></div>
+        <p>Loading simulation...</p>
+      </div>
+    );
+  }
 
-  const fetchAssetChanges = async (userId, index) => {
-    const db = getFirestore();
-    const docRef = doc(db, 'Quiz', 'Asset Market Simulations', 'Simulations', `Simulation ${index}`, 'Simulation Controls', 'Controls');
-    const docSnap = await getDoc(docRef);
-    if (docSnap.exists()) {
-      const data = docSnap.data();
-      setAssetChanges(data.assetChanges);
-      setSimulationYears(data.years || 1);
-    }
-  };
+  if (error) {
+    return (
+      <div className="error-container">
+        <h2>Error</h2>
+        <p>{error}</p>
+        <button onClick={() => window.location.reload()} className="simulationpage-modern-button">
+          Retry
+        </button>
+      </div>
+    );
+  }
 
   const finishSimulation = async () => {
-    const finalValues = groups.map(group => ({
-      name: group.name,
-      equity: group.quarterlyValues.equity[group.quarterlyValues.equity.length - 1],
-      bonds: group.quarterlyValues.bonds[group.quarterlyValues.bonds.length - 1],
-      realestate: group.quarterlyValues.realestate[group.quarterlyValues.realestate.length - 1],
-      commodities: group.quarterlyValues.commodities[group.quarterlyValues.commodities.length - 1],
-      other: group.quarterlyValues.other[group.quarterlyValues.other.length - 1],
-    }));
-
-    const quarterResults = groups.map(group => ({
-      name: group.name,
-      equity: group.quarterlyValues.equity,
-      bonds: group.quarterlyValues.bonds,
-      realestate: group.quarterlyValues.realestate,
-      commodities: group.quarterlyValues.commodities,
-      other: group.quarterlyValues.other,
-    }));
-
-    const db = getFirestore();
     try {
+      const finalValues = groups.map(group => ({
+        name: group.name,
+        equity: group.quarterlyValues.equity[group.quarterlyValues.equity.length - 1],
+        bonds: group.quarterlyValues.bonds[group.quarterlyValues.bonds.length - 1],
+        realestate: group.quarterlyValues.realestate[group.quarterlyValues.realestate.length - 1],
+        commodities: group.quarterlyValues.commodities[group.quarterlyValues.commodities.length - 1],
+        other: group.quarterlyValues.other[group.quarterlyValues.other.length - 1],
+      }));
+
+      const quarterResults = groups.map(group => ({
+        name: group.name,
+        equity: group.quarterlyValues.equity,
+        bonds: group.quarterlyValues.bonds,
+        realestate: group.quarterlyValues.realestate,
+        commodities: group.quarterlyValues.commodities,
+        other: group.quarterlyValues.other,
+      }));
+
+      const db = getFirestore();
       await setDoc(doc(db, uid, 'Asset Market Simulations', 'Simulations', 'Simulation 1', "Results", "Final"), { finalValues });
       await setDoc(doc(db, uid, 'Asset Market Simulations', 'Simulations', 'Simulation 1', "Results", "Quarters"), { quarterResults });
       
@@ -527,6 +572,7 @@ const Simulation = () => {
       });
     } catch (error) {
       console.error("Error saving simulation results:", error);
+      setError("Failed to save simulation results. Please check your internet connection.");
     }
   };
 

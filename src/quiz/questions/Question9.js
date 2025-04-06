@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './styles/Question9.css';
 import equitiesIcon from '../../assets/icons/equities.png';
 import bondsIcon from '../../assets/icons/bonds.png';
@@ -8,6 +9,7 @@ import otherIcon from '../../assets/icons/other.png';
 import graphImage from '../../assets/icons/graphimage.png';
 
 const Question9= ({ teams, onAnswer, onNextQuestion, onAwardPoints }) => {
+  const navigate = useNavigate();
   const [timer, setTimer] = useState(600); // 10-minute timer
   const [showGlossary, setShowGlossary] = useState(false);
   const [showHintModal, setShowHintModal] = useState(false);
@@ -67,10 +69,18 @@ const Question9= ({ teams, onAnswer, onNextQuestion, onAwardPoints }) => {
   };
 
   const nextQuestion = () => {
-    // Skip results screen and go directly to simulation
-    onNextQuestion();
-    // Set quiz as complete
+    // Mark quiz as complete
     onAnswer();
+    // Navigate to simulation setup with teams data
+    navigate('/sim-setup', {
+      state: {
+        teams: teams.map(team => ({
+          name: team.name,
+          points: team.points,
+          taskScores: team.taskScores
+        }))
+      }
+    });
   };
 
   return (
