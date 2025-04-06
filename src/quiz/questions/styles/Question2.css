@@ -303,19 +303,29 @@
 
 .question2-points-section {
   display: flex;
-  flex-direction: row;
-  justify-content: center;
+  align-items: center;
+  gap: 1.25rem;
 }
 
-.question2-points {
-  font-size: 1.3rem;
-  color: #3b82f6;
-  font-weight: bold;
+.question2-points-section h3 {
+  margin: 0;
+  font-size: 2.3rem;
+  line-height: 1;
 }
 
 .question2-lightning-bolt {
-  width: 40px;
-  height: 40px;
+  width: 28px;
+  height: 28px;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+}
+
+.question2-points {
+  font-weight: 600;
+  color: #2196F3;
+  font-size: 1.1rem;
+  padding: 0.5rem 1rem;
+  background: #e3f2fd;
+  border-radius: 20px;
 }
 
 /* Multiple Choice Section */
