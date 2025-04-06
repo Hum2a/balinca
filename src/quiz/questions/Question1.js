@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import './Question1.css';
-import lightningBolt from '../../../../assets/icons/Lightning Bolt.png';
-import q1Image from '../../../../assets/icons/q1image.png';
+import './styles/Question1.css';
+import lightningBolt from '../../assets/icons/Lightning Bolt.png';
+import q1Image from '../../assets/icons/q1image.png';
 
 const Question1 = ({ teams, onAnswer, onNextQuestion, onAwardPoints }) => {
   const [selectedOption, setSelectedOption] = useState(null);
@@ -21,7 +21,7 @@ const Question1 = ({ teams, onAnswer, onNextQuestion, onAwardPoints }) => {
   const [modalPosition, setModalPosition] = useState({ top: 0, left: 0 });
   const [teamAnswers, setTeamAnswers] = useState(Array(teams.length).fill(''));
 
-  const correctAnswer = 'C';
+  const correctAnswer = 'D';
 
   useEffect(() => {
     let intervalId;
@@ -84,7 +84,7 @@ const Question1 = ({ teams, onAnswer, onNextQuestion, onAwardPoints }) => {
 
   const submitAnswers = () => {
     setShowResults(true);
-    const pointsArray = teamAnswers.map(answer => (answer === correctAnswer ? 3 : 0));
+    const pointsArray = teamAnswers.map(answer => (answer === correctAnswer ? 2 : 0));
     onAwardPoints(pointsArray);
   };
 
@@ -125,7 +125,7 @@ const Question1 = ({ teams, onAnswer, onNextQuestion, onAwardPoints }) => {
           <div className="question1-points-section">
             <h3>Challenge 1</h3>
             <img src={lightningBolt} alt="Lightning Bolt" className="question1-lightning-bolt" />
-            <p className="question1-points">3 points</p>
+            <p className="question1-points">2 points</p>
           </div>
           <div className="question1-button-container">
             <button className="question1-hint-button" onClick={() => setShowHintModal(true)}>Hint?</button>
@@ -133,13 +133,13 @@ const Question1 = ({ teams, onAnswer, onNextQuestion, onAwardPoints }) => {
         </div>
         <img src={q1Image} alt="Task 1 Image" className="question1-task-image" />
         <p>
-          Ben is a 30 year old engineer. He has the following
+          Omar has started tracking his finances and wants to calculate his net worth. He has the following
           <span
             className="question1-clickable-term question1-assets-class"
             onMouseOver={(e) => showModal('assets', e)}
             onMouseLeave={hideModal}
           >
-            <strong>assets</strong>
+            <strong> assets </strong>
           </span>
           and
           <span
@@ -147,7 +147,7 @@ const Question1 = ({ teams, onAnswer, onNextQuestion, onAwardPoints }) => {
             onMouseOver={(e) => showModal('liabilities', e)}
             onMouseLeave={hideModal}
           >
-            <strong>liabilities</strong>
+            <strong> liabilities</strong>
           </span>.
         </p>
 
@@ -170,16 +170,16 @@ const Question1 = ({ teams, onAnswer, onNextQuestion, onAwardPoints }) => {
             <h4>Assets</h4>
             <ul>
               <li>
-                <span className="question1-asset-icon">🏠 House</span>
-                <span className="question1-asset-value">£200,000</span>
+                <span className="question1-asset-icon">🏠 Apartment (gifted)</span>
+                <span className="question1-asset-value">SAR 800,000</span>
               </li>
               <li>
-                <span className="question1-asset-icon">🚗 Car</span>
-                <span className="question1-asset-value">£50,000</span>
+                <span className="question1-asset-icon">💵 Savings</span>
+                <span className="question1-asset-value">SAR 25,000</span>
               </li>
               <li>
-                <span className="question1-asset-icon">💵 Cash</span>
-                <span className="question1-asset-value">£20,000</span>
+                <span className="question1-asset-icon">🚗 Used Car</span>
+                <span className="question1-asset-value">SAR 50,000</span>
               </li>
             </ul>
           </div>
@@ -187,12 +187,12 @@ const Question1 = ({ teams, onAnswer, onNextQuestion, onAwardPoints }) => {
             <h4>Liabilities</h4>
             <ul>
               <li>
-                <span className="question1-asset-icon">🏠 Mortgage (6%)</span>
-                <span className="question1-asset-value">£150,000</span>
+                <span className="question1-asset-icon">🚗 Car loan (5% interest)</span>
+                <span className="question1-asset-value">SAR 30,000</span>
               </li>
               <li>
-                <span className="question1-asset-icon">🚗 Car Loan (10%)</span>
-                <span className="question1-asset-value">£20,000</span>
+                <span className="question1-asset-icon">💳 Credit card debt</span>
+                <span className="question1-asset-value">SAR 5,000</span>
               </li>
             </ul>
           </div>
@@ -203,10 +203,10 @@ const Question1 = ({ teams, onAnswer, onNextQuestion, onAwardPoints }) => {
       {showResults ? (
         <div className="question1-result-section">
           <h4>Correct Answer:</h4>
-          <p className="question1-correct-answer">£100,000</p>
+          <p className="question1-correct-answer">SAR 840,000</p>
           <p className="question1-correct-answer-description">Net Worth is</p>
           <p className="question1-correct-answer-description"><strong>Total Assets – Total Liabilities</strong></p>
-          <p className="question1-correct-answer-description">£270,000 - £170,000</p>
+          <p className="question1-correct-answer-description">SAR 875,000 - SAR 35,000</p>
           <h4 className="question1-your-answers">Your answers</h4>
 
           <div className="question1-team-answer-comparison">
@@ -226,16 +226,16 @@ const Question1 = ({ teams, onAnswer, onNextQuestion, onAwardPoints }) => {
         <div>
           {/* Question Section */}
           <div className="question1-question-section">
-            <p className="question1-question">What is his net worth?</p>
+            <p className="question1-question">What is Omar's net worth?</p>
           </div>
 
           {/* Multiple Choice Options */}
           <div className="question1-choices-container">
-            <button className="question1-choice-button">A. £20,000</button>
-            <button className="question1-choice-button">B. £50,000</button>
-            <button className="question1-choice-button">C. £100,000</button>
-            <button className="question1-choice-button">D. £270,000</button>
-            <button className="question1-choice-button">E. £440,000</button>
+            <button className="question1-choice-button">A. SAR 40,000</button>
+            <button className="question1-choice-button">B. SAR 85,000</button>
+            <button className="question1-choice-button">C. SAR 120,000</button>
+            <button className="question1-choice-button">D. SAR 840,000</button>
+            <button className="question1-choice-button">E. SAR 1,100,000</button>
           </div>
 
           {/* Team Answer Section */}
@@ -273,6 +273,7 @@ const Question1 = ({ teams, onAnswer, onNextQuestion, onAwardPoints }) => {
           <div className="question1-hint-modal">
             <h3>Hint</h3>
             <p>Net worth = Total Assets – Total Liabilities</p>
+            <p>Add up all assets first, then subtract all liabilities.</p>
             <button onClick={() => setShowHintModal(false)} className="question1-close-modal-button">Close</button>
           </div>
         </div>

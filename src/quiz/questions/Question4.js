@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import './Question4.css';
-import lightningBolt from '../../../../assets/icons/Lightning Bolt.png';
-import moneyBars from '../../../../assets/icons/moneybars.png';
-import InvestmentCalculator from '../../../widgets/InvestmentCalculator';
+import './styles/Question4.css';
+import lightningBolt from '../../assets/icons/Lightning Bolt.png';
+import moneyBars from '../../assets/icons/moneybars.png';
+import InvestmentCalculator from '../widgets/InvestmentCalculator';
 
 const Question4 = ({ teams, onAnswer, onNextQuestion, onAwardPoints }) => {
   const [showResults, setShowResults] = useState(false);
@@ -22,7 +22,7 @@ const Question4 = ({ teams, onAnswer, onNextQuestion, onAwardPoints }) => {
   const [teamAnswers, setTeamAnswers] = useState(Array(teams.length).fill(''));
   const [detailedAnswerShown, setDetailedAnswerShown] = useState(false);
 
-  const correctAnswer = 'D';
+  const correctAnswer = 'C';
 
   useEffect(() => {
     let intervalId;
@@ -120,14 +120,20 @@ const Question4 = ({ teams, onAnswer, onNextQuestion, onAwardPoints }) => {
           <div className="question4-points-section">
             <h3>Challenge 4</h3>
             <img src={lightningBolt} alt="Lightning Bolt" className="question4-lightning-bolt" />
-            <p className="question4-points">5 points</p>
+            <p className="question4-points">3 points</p>
           </div>
           <div className="question4-button-container">
             <button className="question4-hint-button" onClick={() => setShowHintModal(true)}>Hint?</button>
           </div>
         </div>
         <div className="question4-task-header-question">
-          <p>Ben wants to save money for his future. He has £1,000 to invest.</p>
+          <p>Noura earns 5,000 SAR a month from her tutoring job. She carefully plans her monthly spending:</p>
+          <ul className="question4-expense-list">
+            <li>Rent to parents: 1,200 SAR</li>
+            <li>Transport & food: 1,600 SAR</li>
+            <li>Entertainment & shopping: 1,000 SAR</li>
+          </ul>
+          <p>Last month, she also had an unexpected car repair that cost her 800 SAR.</p>
           <img src={moneyBars} alt="Task 4 Image" className="question4-task-image" />
         </div>
       </div>
@@ -150,7 +156,7 @@ const Question4 = ({ teams, onAnswer, onNextQuestion, onAwardPoints }) => {
         <div className="question4-hint-modal-overlay">
           <div className="question4-hint-modal">
             <h3>Hint</h3>
-            <p>Consider the risk and potential return of each investment option.</p>
+            <p>Calculate her total expenses (including the unexpected car repair) and subtract from her monthly income. Then think about what this means for her financial planning.</p>
             <button onClick={() => setShowHintModal(false)} className="question4-close-modal-button">Close</button>
           </div>
         </div>
@@ -161,16 +167,16 @@ const Question4 = ({ teams, onAnswer, onNextQuestion, onAwardPoints }) => {
         <div>
           {/* Question and Points Section */}
           <div className="question4-question-section">
-            <p className="question4-question-text">What should he invest in?</p>
+            <p className="question4-question-text">How much did she actually save last month, and what is the best financial habit she could build?</p>
           </div>
 
           {/* Multiple Choice Options */}
           <div className="question4-choices-container">
-            <button className="question4-choice-button">A. High-risk stocks</button>
-            <button className="question4-choice-button">B. Government bonds</button>
-            <button className="question4-choice-button">C. Savings account</button>
-            <button className="question4-choice-button">D. Cryptocurrency</button>
-            <button className="question4-choice-button">E. Real estate</button>
+            <button className="question4-choice-button">A. She saved 1,200 SAR – this is 20% of her income so she should keep doing the same every month</button>
+            <button className="question4-choice-button">B. She saved 1,200 SAR – She should start to save more in case of emergencies</button>
+            <button className="question4-choice-button">C. She saved 400 SAR - She should set money aside for emergencies</button>
+            <button className="question4-choice-button">D. She saved 400 SAR – which means she still has enough money and should not worry about savings</button>
+            <button className="question4-choice-button">E. She saved nothing — and needs to increase her income</button>
           </div>
 
           {/* Team Answer Section */}
@@ -203,27 +209,55 @@ const Question4 = ({ teams, onAnswer, onNextQuestion, onAwardPoints }) => {
       ) : (
         <div className="question4-result-section">
           <h4>Correct Answer:</h4>
-          <p className="question4-correct-answer">B. Government bonds</p>
+          <p className="question4-correct-answer">C. She saved 400 SAR - She should set money aside for emergencies</p>
           <p onClick={toggleDetailedAnswer} className="question4-toggle-detailed-answer">
-            Click to {detailedAnswerShown ? 'hide detailed answer ⬆️' : 'see detailed answer ⬇️'}
+            Click to {detailedAnswerShown ? 'hide detailed explanation ⬆️' : 'see detailed explanation ⬇️'}
           </p>
 
-          {/* Expanded Answer with Investment Calculator */}
+          {/* Expanded Answer with Calculation */}
           {detailedAnswerShown && (
             <div className="question4-expanded-answer">
-              <p>Government bonds are a good choice for Ben because:</p>
-              <ul>
-                <li>They are low-risk investments</li>
-                <li>They provide steady returns</li>
-                <li>They are backed by the government</li>
-                <li>They are suitable for long-term savings</li>
-              </ul>
-              
-              {/* Investment Calculator Widget */}
-              <div className="question4-calculator-widget">
-                <h3>Try our Investment Calculator</h3>
-                <p>See how different investment strategies could grow your money over time:</p>
-                <InvestmentCalculator />
+              <div className="question4-calculation">
+                <h4>Monthly Budget Calculation:</h4>
+                <table className="question4-budget-table">
+                  <tr>
+                    <td>Monthly Income:</td>
+                    <td>5,000 SAR</td>
+                  </tr>
+                  <tr>
+                    <td colSpan="2" className="question4-expenses-header">Regular Expenses:</td>
+                  </tr>
+                  <tr>
+                    <td>Rent to parents:</td>
+                    <td>-1,200 SAR</td>
+                  </tr>
+                  <tr>
+                    <td>Transport & food:</td>
+                    <td>-1,600 SAR</td>
+                  </tr>
+                  <tr>
+                    <td>Entertainment & shopping:</td>
+                    <td>-1,000 SAR</td>
+                  </tr>
+                  <tr>
+                    <td>Unexpected car repair:</td>
+                    <td>-800 SAR</td>
+                  </tr>
+                  <tr className="question4-total-row">
+                    <td>Amount Saved:</td>
+                    <td>400 SAR</td>
+                  </tr>
+                </table>
+
+                <div className="question4-explanation">
+                  <h4>Why this matters:</h4>
+                  <ul>
+                    <li>The unexpected car repair shows why emergency funds are important</li>
+                    <li>Without the car repair, Noura would have saved 1,200 SAR</li>
+                    <li>Having an emergency fund helps handle unexpected expenses without stress</li>
+                    <li>It's recommended to save 3-6 months of expenses for emergencies</li>
+                  </ul>
+                </div>
               </div>
             </div>
           )}

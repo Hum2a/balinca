@@ -1,5 +1,5 @@
 /* Main Container Styling */
-.question6-container {
+.question9-container {
   padding: 40px;
   margin: 0 auto;
   font-family: Arial, sans-serif;
@@ -13,7 +13,7 @@
 }
 
 /* Progress Bar Styling */
-.question6-progress-bar-container {
+.question9-progress-bar-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -21,7 +21,7 @@
   padding: 0 20px;
 }
 
-.question6-progress-bar {
+.question9-progress-bar {
   width: 80%;
   height: 8px;
   background-color: #e0e0e0;
@@ -30,7 +30,7 @@
   overflow: hidden;
 }
 
-.question6-progress {
+.question9-progress {
   height: 100%;
   background: linear-gradient(90deg, #3b82f6, #2563eb);
   border-radius: 10px;
@@ -38,7 +38,7 @@
 }
 
 /* Timer Styling */
-.question6-timer-container {
+.question9-timer-container {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -48,7 +48,7 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
-.question6-timer {
+.question9-timer {
   font-size: 1.8rem;
   font-weight: bold;
   color: #1e293b;
@@ -57,13 +57,13 @@
   gap: 8px;
 }
 
-.question6-timer::before {
+.question9-timer::before {
   content: '⏳';
   font-size: 1.5rem;
 }
 
 /* Task Header */
-.question6-task-header {
+.question9-task-header {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -71,14 +71,14 @@
   padding: 0 20px;
 }
 
-.question6-task-header h3 {
+.question9-task-header h3 {
   font-size: 2.5rem;
   color: #1e293b;
   margin-bottom: 15px;
   font-weight: 800;
 }
 
-.question6-task-header p {
+.question9-task-header p {
   color: #475569;
   font-size: 1.4rem;
   line-height: 1.6;
@@ -86,20 +86,20 @@
 }
 
 /* Asset Allocation Section */
-.question6-allocation-header {
+.question9-allocation-header {
   text-align: center;
   margin: 40px 0;
   padding: 0 20px;
 }
 
-.question6-allocation-header p {
+.question9-allocation-header p {
   font-size: 1.6rem;
   color: #1e293b;
   font-weight: 600;
   margin-bottom: 10px;
 }
 
-.question6-asset-classes-container {
+.question9-asset-classes-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 20px;
@@ -107,19 +107,19 @@
   margin: 20px 0;
 }
 
-.question6-asset-class {
+.question9-asset-class {
   background: #ffffff;
   border-radius: 15px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.question6-asset-class:hover {
+.question9-asset-class:hover {
   transform: translateY(-5px);
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
 }
 
-.question6-asset-button {
+.question9-asset-button {
   display: flex;
   align-items: center;
   gap: 15px;
@@ -132,11 +132,11 @@
   width: 100%;
 }
 
-.question6-asset-button:hover {
+.question9-asset-button:hover {
   background: #f1f5f9;
 }
 
-.question6-asset-icon {
+.question9-asset-icon {
   width: 50px;
   height: 50px;
   object-fit: contain;
@@ -146,27 +146,27 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
-.question6-asset-button span {
+.question9-asset-button span {
   font-size: 1.3rem;
   font-weight: 600;
   color: #1e293b;
 }
 
-.question6-asset-definition {
+.question9-asset-definition {
   padding: 20px;
   background: #ffffff;
   border-radius: 0 0 15px 15px;
   border-top: 1px solid #e2e8f0;
 }
 
-.question6-asset-definition p {
+.question9-asset-definition p {
   color: #475569;
   font-size: 1.1rem;
   line-height: 1.6;
 }
 
 /* Allocation Graph */
-.question6-allocation-graph {
+.question9-allocation-graph {
   width: 100%;
   max-width: 800px;
   margin: 40px auto;
@@ -177,7 +177,7 @@
 }
 
 /* Glossary Sidebar */
-.question6-glossary-sidebar {
+.question9-glossary-sidebar {
   position: fixed;
   top: 0;
   right: 0;
@@ -191,7 +191,7 @@
   transition: transform 0.3s ease;
 }
 
-.question6-glossary-header {
+.question9-glossary-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -200,13 +200,13 @@
   border-bottom: 2px solid #e2e8f0;
 }
 
-.question6-glossary-header h2 {
+.question9-glossary-header h2 {
   font-size: 1.8rem;
   color: #1e293b;
   font-weight: 700;
 }
 
-.question6-glossary-header .question6-close-button {
+.question9-glossary-header .question9-close-button {
   background-color: #f1f5f9;
   border: none;
   width: 40px;
@@ -221,19 +221,19 @@
   transition: all 0.3s ease;
 }
 
-.question6-glossary-header .question6-close-button:hover {
+.question9-glossary-header .question9-close-button:hover {
   background-color: #e2e8f0;
   color: #1e293b;
 }
 
-.question6-glossary-content h3 {
+.question9-glossary-content h3 {
   font-size: 1.4rem;
   color: #3b82f6;
   margin: 25px 0 10px;
   font-weight: 600;
 }
 
-.question6-glossary-content p {
+.question9-glossary-content p {
   font-size: 1.1rem;
   color: #475569;
   line-height: 1.6;
@@ -241,7 +241,7 @@
 }
 
 /* Glossary Button */
-.question6-glossary-button {
+.question9-glossary-button {
   background-color: #f8fafc;
   border: 2px solid #e2e8f0;
   color: #1e293b;
@@ -256,14 +256,14 @@
   gap: 8px;
 }
 
-.question6-glossary-button:hover {
+  .question9-glossary-button:hover {
   background-color: #f1f5f9;
   border-color: #cbd5e1;
   transform: translateY(-2px);
 }
 
 /* Submit Button */
-.question6-submit-button {
+.question9-submit-button {
   width: 200px;
   background: linear-gradient(135deg, #3b82f6, #2563eb);
   color: white;
@@ -279,30 +279,30 @@
   box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
 }
 
-.question6-submit-button:hover {
+.question9-submit-button:hover {
   transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
-  .question6-container {
+  .question9-container {
     padding: 20px;
   }
 
-  .question6-asset-classes-container {
+  .question9-asset-classes-container {
     grid-template-columns: 1fr;
   }
 
-  .question6-glossary-sidebar {
+  .question9-glossary-sidebar {
     width: 100%;
   }
 
-  .question6-task-header h3 {
+  .question9-task-header h3 {
     font-size: 2rem;
   }
 
-  .question6-task-header p {
+  .question9-task-header p {
     font-size: 1.2rem;
   }
 } 

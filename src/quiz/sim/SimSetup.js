@@ -20,7 +20,8 @@ import { getAuth } from 'firebase/auth';
 import SimulationControls from '../../simulation/scripts/SimulationControls';
 import SimulationHistory from '../../simulation/scripts/PastSimulations';
 import '../../simulation/styles/GroupCreation.css';
-import LifeSmartLogo from '../../../../assets/icons/LifeSmartLogo.png';
+import LifeSmartLogo from '../../assets/icons/LifeSmartLogo.png';
+import graphImage from '../../assets/icons/graphimage.png';
 
 Chart.register(ArcElement, Tooltip, Legend, Title);
 
@@ -320,7 +321,7 @@ const SimSetup = () => {
     }));
 
     // Navigate to simulation page with groups data
-    navigate('/simulation-page', { 
+    navigate('/simulation', { 
       state: { 
         groups: formattedGroups,
         maxPortfolioValue,
@@ -393,12 +394,11 @@ const SimSetup = () => {
             </div>
 
             <h1 className="GroupCreation-header-content">
-              <FaChartLine className="GroupCreation-blueline" />
-              <span>Group Management</span>
+              <span className="GroupCreation-header-content-text">Group Management</span>
             </h1>
 
             <div className="GroupCreation-allocation-image">
-              <FaChartPie size={100} />
+              <img src={graphImage} alt="Allocation Graph" />
             </div>
 
             <div className="GroupCreation-groups">

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import './Question3.css';
-import lightningBolt from '../../../../assets/icons/Lightning Bolt.png';
-import blueCash from '../../../../assets/icons/bluecash.png';
+import './styles/Question3.css';
+import lightningBolt from '../../assets/icons/Lightning Bolt.png';
+import blueCash from '../../assets/icons/bluecash.png';
 
 const Question3 = ({ teams, onAnswer, onNextQuestion, onAwardPoints }) => {
   const [showResults, setShowResults] = useState(false);
@@ -28,11 +28,11 @@ const Question3 = ({ teams, onAnswer, onNextQuestion, onAwardPoints }) => {
   });
 
   const pointsMapping = {
-    A: 7,
-    B: 10,
-    C: 8,
-    D: 6,
-    E: 4
+    A: 0,
+    B: 5,
+    C: 2,
+    D: 4,
+    E: 1
   };
 
   useEffect(() => {
@@ -150,14 +150,14 @@ const Question3 = ({ teams, onAnswer, onNextQuestion, onAwardPoints }) => {
           <div className="question3-points-section">
             <h3>Challenge 3</h3>
             <img src={lightningBolt} alt="Lightning Bolt" className="question3-lightning-bolt" />
-            <p className="question3-points">10 points</p>
+            <p className="question3-points">5 points</p>
           </div>
           <div className="question3-button-container">
             <button className="question3-hint-button" onClick={() => setShowHintModal(true)}>Hint?</button>
           </div>
         </div>
         <div className="question3-task-header-question">
-          <p>Ben inherits a £20,000 gift from an old uncle. He has several options on what to do with the money.</p>
+          <p>Omar receives SAR 10,000 as a gift from his uncle during Eid. He considers how best to use it.</p>
           <img src={blueCash} alt="Task 3 Image" className="question3-task-image" />
         </div>
       </div>
@@ -180,7 +180,7 @@ const Question3 = ({ teams, onAnswer, onNextQuestion, onAwardPoints }) => {
         <div className="question3-hint-modal-overlay">
           <div className="question3-hint-modal">
             <h3>Hint</h3>
-            <p>Net worth = Total Assets – Total Liabilities</p>
+            <p>Think about which option provides the most long-term financial benefit. Consider both immediate gains (like paying off debt) and potential future returns (like investing in yourself).</p>
             <button onClick={() => setShowHintModal(false)} className="question3-close-modal-button">Close</button>
           </div>
         </div>
@@ -234,33 +234,17 @@ const Question3 = ({ teams, onAnswer, onNextQuestion, onAwardPoints }) => {
         <div>
           {/* Question and Points Section */}
           <div className="question3-question-section">
-            <p>What should he do with the money?</p>
+            <p>What's the most financially sound choice?</p>
           </div>
 
           {/* Options List Before Submission */}
           <div className="question3-options-list-before">
             <ol>
-              <li>A. Pay off some of his
-                <span className="question3-clickable-term"
-                      onMouseOver={(e) => showHoverModal('Mortgage', 'A special kind of loan that people use to buy a house. They borrow money from a bank and pay it back every month for many years. While they are paying it back, they can live in the house.', e)}
-                      onMouseLeave={hideHoverModal}>
-                  <strong>Mortgage</strong>
-                </span>
-                (house loan)
-              </li>
-              <li>B. Pay off his car loan</li>
-              <li>C. Spend the money on a training and self-development course</li>
-              <li>
-                <span className="question3-option-text">D. Invest in a new 
-                  <span className="question3-clickable-term"
-                        onMouseOver={(e) => showHoverModal('Cryptocurrency', 'A type of money you can use on a computer but can\'t touch like coins or bills. It\'s made using special computer codes, and you can use it to buy things online.', e)}
-                        onMouseLeave={hideHoverModal}>
-                    <strong>cryptocurrency</strong>
-                  </span> 
-                  coin his friend has just bought (Skibidicoin)
-                </span>
-              </li>
-              <li>E. Put the money in a savings account (paying 3% interest)</li>
+              <li>A. Use the money to buy a limited edition watch and designer trainers</li>
+              <li>B. Pay off part of his credit card and car loan</li>
+              <li>C. Put the full amount in a savings account earning 2.5% a year</li>
+              <li>D. Take an online course in app development to boost future earnings</li>
+              <li>E. Invest in a new crypto token called "SkibidiCoin" his friend is launching</li>
             </ol>
           </div>
 
@@ -303,29 +287,11 @@ const Question3 = ({ teams, onAnswer, onNextQuestion, onAwardPoints }) => {
                 <li key={option} onClick={() => toggleDetails(option)}>
                   <div className="question3-top">
                     <span className="question3-option-text">
-                      {option === 'A' && `A. Pay off some of his `}
-                      {option === 'A' && (
-                        <span className="question3-clickable-term"
-                              onMouseOver={(e) => showHoverModal('Mortgage', 'A special kind of loan that people use to buy a house. They borrow money from a bank and pay it back every month for many years. While they are paying it back, they can live in the house.', e)}
-                              onMouseLeave={hideHoverModal}>
-                          <strong>Mortgage</strong>
-                        </span>
-                      )}
-                      {option === 'A' && ` (house loan)`}
-                      {option === 'B' && 'B. Pay off his car loan'}
-                      {option === 'C' && 'C. Spend the money on a training and self-development course'}
-                      {option === 'D' && (
-                        <>
-                          D. Invest in a new{' '}
-                          <span className="question3-clickable-term"
-                                onMouseOver={(e) => showHoverModal('Cryptocurrency', 'A type of money you can use on a computer but can\'t touch like coins or bills. It\'s made using special computer codes, and you can use it to buy things online.', e)}
-                                onMouseLeave={hideHoverModal}>
-                            <strong>cryptocurrency</strong>
-                          </span>
-                          {' '}coin his friend has just bought (Skibidicoin)
-                        </>
-                      )}
-                      {option === 'E' && 'E. Put the money in a savings account (paying 3% interest)'}
+                      {option === 'A' && 'A. Use the money to buy a limited edition watch and designer trainers'}
+                      {option === 'B' && 'B. Pay off part of his credit card and car loan'}
+                      {option === 'C' && 'C. Put the full amount in a savings account earning 2.5% a year'}
+                      {option === 'D' && 'D. Take an online course in app development to boost future earnings'}
+                      {option === 'E' && 'E. Invest in a new crypto token called "SkibidiCoin" his friend is launching'}
                     </span>
                     <span className="question3-points-display">
                       <img src={lightningBolt} alt="Lightning Bolt" className="question3-lightning-bolt" />
@@ -334,42 +300,23 @@ const Question3 = ({ teams, onAnswer, onNextQuestion, onAwardPoints }) => {
                   </div>
                   {detailsVisible[option] && (
                     <div className="question3-details-content">
-                      <table>
-                        <thead>
-                          <tr>
-                            <th>Assets</th>
-                            <th>Liabilities</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr>
-                            <td>House £200,000</td>
-                            <td>
-                              <span className="question3-clickable-term"
-                                    onMouseOver={(e) => showHoverModal('Mortgage', 'A special kind of loan that people use to buy a house. They borrow money from a bank and pay it back every month for many years. While they are paying it back, they can live in the house.', e)}
-                                    onMouseLeave={hideHoverModal}>
-                                <strong>Mortgage</strong>
-                              </span>
-                              £150,000
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>Car £50,000</td>
-                            <td>Car Loan £20,000</td>
-                          </tr>
-                          <tr>
-                            <td>Cash £{option === 'A' ? '28,000' : option === 'B' ? '35,000' : option === 'C' ? '50,000' : option === 'D' ? '25,000' : '45,000'}</td>
-                            <td></td>
-                          </tr>
-                          <tr>
-                            <td><strong>Total: £{option === 'A' ? '278,000' : option === 'B' ? '285,000' : option === 'C' ? '300,000' : option === 'D' ? '275,000' : '275,000'}</strong></td>
-                            <td><strong>Total: £{option === 'B' ? '150,000' : '170,000'}</strong></td>
-                          </tr>
-                          <tr>
-                            <td colSpan="2"><strong>Net Worth = £{option === 'A' ? '128,000' : option === 'B' ? '135,000' : option === 'C' ? '130,000' : option === 'D' ? '105,000' : '125,000'}</strong></td>
-                          </tr>
-                        </tbody>
-                      </table>
+                      <div className="question3-explanation">
+                        {option === 'A' && (
+                          <p>Spending on luxury items provides no financial return and depletes savings completely. While personal enjoyment has value, this choice doesn't help build financial security.</p>
+                        )}
+                        {option === 'B' && (
+                          <p>Paying off high-interest debt is often the best financial move. It reduces future interest payments and improves monthly cash flow, creating a stronger financial foundation.</p>
+                        )}
+                        {option === 'C' && (
+                          <p>While saving is better than spending, the 2.5% return is modest. It's a safe choice but may not maximize the money's potential, especially if Omar has existing debts with higher interest rates.</p>
+                        )}
+                        {option === 'D' && (
+                          <p>Investing in skills that can increase earning potential is often a good long-term strategy. However, the return isn't guaranteed and depends on successfully completing the course and finding opportunities to use the new skills.</p>
+                        )}
+                        {option === 'E' && (
+                          <p>Investing in unproven cryptocurrencies, especially from unknown sources, is extremely risky. While some crypto investments can succeed, this appears to be a highly speculative choice with significant risk of losing the entire investment.</p>
+                        )}
+                      </div>
                     </div>
                   )}
                 </li>

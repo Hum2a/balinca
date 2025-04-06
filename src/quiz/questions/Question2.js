@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import './Question2.css';
-import lightningBolt from '../../../../assets/icons/Lightning Bolt.png';
+import './styles/Question2.css';
+import lightningBolt from '../../assets/icons/Lightning Bolt.png';
 
 const Question2 = ({ teams, onAnswer, onNextQuestion, onAwardPoints }) => {
   const [showResults, setShowResults] = useState(false);
   const [showExpandedAnswer, setShowExpandedAnswer] = useState(false);
   const [showGlossary, setShowGlossary] = useState(false);
   const [showHintModal, setShowHintModal] = useState(false);
-  const [timer, setTimer] = useState(240);
+  const [timer, setTimer] = useState(180);
   const [timerStarted, setTimerStarted] = useState(false);
   const [glossaryTitle, setGlossaryTitle] = useState('');
   const [glossaryContent, setGlossaryContent] = useState('');
@@ -34,7 +34,7 @@ const Question2 = ({ teams, onAnswer, onNextQuestion, onAwardPoints }) => {
 
   const minutes = Math.floor(timer / 60);
   const seconds = timer % 60;
-  const progressBarWidth = (timer / 240) * 100;
+  const progressBarWidth = (timer / 180) * 100;
 
   const startTimer = () => {
     if (!timerStarted) {
@@ -73,7 +73,7 @@ const Question2 = ({ teams, onAnswer, onNextQuestion, onAwardPoints }) => {
   };
 
   const nextQuestion = () => {
-    const pointsArray = teamAnswers.map(answer => (answer === correctAnswer ? 3 : 0));
+    const pointsArray = teamAnswers.map(answer => (answer === correctAnswer ? 2 : 0));
     onAwardPoints(pointsArray);
     onNextQuestion();
   };
@@ -115,22 +115,17 @@ const Question2 = ({ teams, onAnswer, onNextQuestion, onAwardPoints }) => {
           <div className="question2-points-section">
             <h3>Challenge 2</h3>
             <img src={lightningBolt} alt="Lightning Bolt" className="question2-lightning-bolt" />
-            <p className="question2-points">3 points</p>
+            <p className="question2-points">2 points</p>
           </div>
           <div className="question2-button-container">
             <button className="question2-hint-button" onClick={() => setShowHintModal(true)}>Hint?</button>
           </div>
         </div>
         <p>
-          Ben earns £60,000 a year. 
-          <span 
-            className="question2-clickable-term" 
-            onMouseOver={(e) => showHoverModal('Income Tax', 'A portion of the money that people earn from their jobs or other places, which they need to give to the government. This money helps pay for things like schools, roads, and hospitals.', e)}
-            onMouseLeave={hideHoverModal}
-          >
-            <strong>Income Tax</strong>
-          </span>
-          automatically comes out of his paycheck before he gets the money.
+          Noura saved 1,000 SAR in cash last year to buy a new phone. She didn't spend any of it, but when she checks the price this year, she finds the same phone now costs 1,100 SAR.
+        </p>
+        <p>
+          She's confused — she saved carefully, so why isn't it enough anymore?
         </p>
       </div>
 
@@ -152,8 +147,8 @@ const Question2 = ({ teams, onAnswer, onNextQuestion, onAwardPoints }) => {
         <div className="question2-hint-modal-overlay">
           <div className="question2-hint-modal">
             <h3>Hint</h3>
-            <p>The first £10,000 Ben earns doesn't get taxed at all. The next money he makes from £10,000 - £40,000 (which is £30,000) gets taxed at 20%. The remaining money he makes after £40,000 gets taxed at 40%.</p>
-            <p>Calculate the total tax he pays and subtract it from his earnings.</p>
+            <p>Think about what happens to the value of money over time. When prices go up generally across the economy, what do we call that?</p>
+            <p>Consider how this affects the purchasing power of saved money.</p>
             <button onClick={() => setShowHintModal(false)} className="question2-close-modal-button">Close</button>
           </div>
         </div>
@@ -210,16 +205,16 @@ const Question2 = ({ teams, onAnswer, onNextQuestion, onAwardPoints }) => {
         <div>
           {/* Question and Points Section */}
           <div className="question2-question-section">
-            <p>How much money does he get in his account after tax?</p>
+            <p>What's really happened here, and what lesson can Noura learn for the future?</p>
           </div>
 
           {/* Multiple Choice Options */}
           <div className="question2-choices-container">
-            <button className="question2-choice-button">A. £38,000</button>
-            <button className="question2-choice-button">B. £42,000</button>
-            <button className="question2-choice-button">C. £46,000</button>
-            <button className="question2-choice-button">D. £48,000</button>
-            <button className="question2-choice-button">E. £50,000</button>
+            <button className="question2-choice-button">A. The phone company increased prices randomly — next year it might go back down</button>
+            <button className="question2-choice-button">B. She should have saved more — saving 1,000 SAR wasn't enough from the beginning</button>
+            <button className="question2-choice-button">C. Prices went up because of inflation - her money lost value over time while just sitting there</button>
+            <button className="question2-choice-button">D. Inflation doesn't affect savings — she just waited too long to buy</button>
+            <button className="question2-choice-button">E. Inflation helps savers, not spenders — so its good that she saved her money</button>
           </div>
 
           {/* Team Answer Section */}
@@ -252,52 +247,23 @@ const Question2 = ({ teams, onAnswer, onNextQuestion, onAwardPoints }) => {
       ) : (
         <div className="question2-result-section">
           <h4>Correct Answer:</h4>
-          <p className="question2-correct-answer">£46,000</p>
+          <p className="question2-correct-answer">C. Prices went up because of inflation - her money lost value over time while just sitting there</p>
           <p onClick={toggleExpandedAnswer} className="question2-detailed-answer-toggle">
-            Click to see detailed answer
+            Click to see detailed explanation
             <span>{showExpandedAnswer ? '⬆️' : '⬇️'}</span>
           </p>
 
           {/* Expanded Answer (Detailed Explanation) */}
           {showExpandedAnswer && (
             <div className="question2-expanded-answer">
-              <table>
-                <thead>
-                  <tr>
-                    <th>Income</th>
-                    <th>Tax rate</th>
-                    <th>Calculations</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>£0 - £10,000</td>
-                    <td><span className="question2-tax-rate question2-tax-0">0%</span></td>
-                    <td>£0</td>
-                  </tr>
-                  <tr>
-                    <td>£10,000 - £40,000</td>
-                    <td><span className="question2-tax-rate question2-tax-20">20%</span></td>
-                    <td>£30,000 <span style={{ color: 'blue' }}>X</span> 20% = £6,000</td>
-                  </tr>
-                  <tr>
-                    <td>£40,000 - <span className="question2-income-text">£60,000</span></td>
-                    <td><span className="question2-tax-rate question2-tax-40">40%</span></td>
-                    <td>£20,000 <span style={{ color: 'blue' }}>X</span> 40% = £8,000</td>
-                  </tr>
-                  <tr>
-                    <td colSpan="3" className="question2-end-text">
-                      <p><strong>Total tax paid:</strong> £6,000 + £8,000 = <span className="question2-tax-paid-text">£14,000</span></p>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td colSpan="3" className="question2-centered-text">
-                      <p><strong>Total income left to take home</strong></p>
-                      <p><span className="question2-income-text">£60,000</span> - <span className="question2-tax-paid-text">£14,000</span> = <span className="question2-correct-answer">£46,000</span></p>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+              <h4>Why this matters:</h4>
+              <p>This example teaches us an important lesson about inflation and how it affects our savings:</p>
+              <ul>
+                <li>Inflation is when prices generally rise over time across the economy</li>
+                <li>When money sits as cash, its purchasing power (what you can buy with it) decreases</li>
+                <li>In this case, the same phone costs 100 SAR more (a 10% increase) after just one year</li>
+                <li>To protect against inflation, it's important to consider ways to grow your savings, not just store them</li>
+              </ul>
             </div>
           )}
 

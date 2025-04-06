@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import './Question5.css';
-import lightningBolt from '../../../../assets/icons/Lightning Bolt.png';
-import moneyBars from '../../../../assets/icons/moneybars.png';
+import './styles/Question5.css';
+import lightningBolt from '../../assets/icons/Lightning Bolt.png';
+import moneyBars from '../../assets/icons/moneybars.png';
 
 const Question5 = ({ teams, onAnswer, onNextQuestion, onAwardPoints }) => {
   const [showResults, setShowResults] = useState(false);
@@ -18,20 +18,10 @@ const Question5 = ({ teams, onAnswer, onNextQuestion, onAwardPoints }) => {
     x: 0,
     y: 0,
   });
-  const [teamAnswers, setTeamAnswers] = useState(Array(teams.length).fill([]));
+  const [teamAnswers, setTeamAnswers] = useState(Array(teams.length).fill(''));
+  const [detailedAnswerShown, setDetailedAnswerShown] = useState(false);
 
-  const correctAnswer = ['A', 'B', 'D', 'E', 'G'];
-
-  const answerOptions = [
-    'A: Paying bills and payments on time',
-    'B: Registering on the electoral roll',
-    'C: Frequently applying for new credit',
-    'D: Paying off or maintaining low levels of debt',
-    'E: Keeping a bank account open for many years',
-    'F: Maxing out your credit cards regularly',
-    'G: Avoiding frequent credit applications',
-    'H: Moving house regularly'
-  ];
+  const correctAnswer = 'D';
 
   useEffect(() => {
     let intervalId;
@@ -68,17 +58,9 @@ const Question5 = ({ teams, onAnswer, onNextQuestion, onAwardPoints }) => {
     setHoverModal(prev => ({ ...prev, show: false }));
   };
 
-  const handleTeamAnswerChange = (index, letter) => {
+  const handleTeamAnswerChange = (index, value) => {
     const newAnswers = [...teamAnswers];
-    const teamAnswerSet = new Set(newAnswers[index]);
-    
-    if (teamAnswerSet.has(letter)) {
-      teamAnswerSet.delete(letter);
-    } else {
-      teamAnswerSet.add(letter);
-    }
-    
-    newAnswers[index] = Array.from(teamAnswerSet).sort();
+    newAnswers[index] = value;
     setTeamAnswers(newAnswers);
   };
 
@@ -87,13 +69,13 @@ const Question5 = ({ teams, onAnswer, onNextQuestion, onAwardPoints }) => {
   };
 
   const nextQuestion = () => {
-    // Calculate points based only on correct answers (1 point per correct answer)
-    const pointsArray = teamAnswers.map(answers => {
-      const correctCount = answers.filter(answer => correctAnswer.includes(answer)).length;
-      return correctCount;
-    });
+    const pointsArray = teamAnswers.map(answer => (answer === correctAnswer ? 3 : 0));
     onAwardPoints(pointsArray);
     onNextQuestion();
+  };
+
+  const toggleDetailedAnswer = () => {
+    setDetailedAnswerShown(!detailedAnswerShown);
   };
 
   return (
@@ -123,64 +105,71 @@ const Question5 = ({ teams, onAnswer, onNextQuestion, onAwardPoints }) => {
           <div className="question5-points-section">
             <h3>Challenge 5</h3>
             <img src={lightningBolt} alt="Lightning Bolt" className="question5-lightning-bolt" />
-            <p className="question5-points">5 points</p>
+            <p className="question5-points">3 points</p>
           </div>
           <div className="question5-button-container">
             <button className="question5-hint-button" onClick={() => setShowHintModal(true)}>Hint?</button>
           </div>
         </div>
         <div className="question5-task-header-question">
-          <p>Ben decides he wants to get another loan in the future, so he would like to improve his 
+          <p>Noura has been saving consistently from her tutoring work and decides to start investing 500 SAR each month. She chooses to invest in a low-cost index fund that tracks the 
             <span 
               className="question5-clickable-term"
-              onMouseEnter={(e) => showHoverModal('Credit Rating', 'A score that shows how reliable you are at repaying money. A higher score means banks are more likely to lend to you.', e)}
+              onMouseEnter={(e) => showHoverModal('TASI', 'The Tadawul All Share Index (TASI) is the main stock market index in Saudi Arabia. It represents the overall performance of the Saudi stock market and includes many of the country\'s biggest companies.', e)}
               onMouseLeave={hideHoverModal}
-            > credit rating</span>.
+            > Tadawul All Share Index (TASI)</span>.
           </p>
+          <p>TASI represents the overall performance of the Saudi stock market and includes many of the country's biggest companies. Over the long term, TASI has delivered average annual returns of around 7%, though it can go up or down in any given year.</p>
           <img src={moneyBars} alt="Task 5 Image" className="question5-task-image" />
         </div>
       </div>
 
-      {/* Question Section */}
-      <div className="question5-question-section">
-        <p className="question5-question-text">Which of the following things improve your 
-          <span 
-            className="question5-clickable-term"
-            onMouseEnter={(e) => showHoverModal('Credit Rating', 'A score that shows how reliable you are at repaying money. A higher score means banks are more likely to lend to you.', e)}
-            onMouseLeave={hideHoverModal}
-          > credit rating</span>?
-        </p>
-      </div>
+      {/* Hint Modal */}
+      {showHintModal && (
+        <div className="question5-hint-modal-overlay">
+          <div className="question5-hint-modal">
+            <h3>Hint</h3>
+            <p>Think about compound interest - your returns each year are reinvested and can earn additional returns. Also consider that you're adding 500 SAR every month for 10 years (that's 60,000 SAR in total contributions).</p>
+            <button onClick={() => setShowHintModal(false)} className="question5-close-modal-button">Close</button>
+          </div>
+        </div>
+      )}
 
       {!showResults ? (
         <div>
+          {/* Question Section */}
+          <div className="question5-question-section">
+            <p className="question5-question-text">If Noura invests SAR 500 a month, and gets an annual return of 7% every year, approximately how much money will she have in the account after 10 years?</p>
+          </div>
+
           {/* Multiple Choice Options */}
           <div className="question5-choices-container">
-            {answerOptions.map((option, index) => (
-              <button key={index} className="question5-choice-button">
-                {option}
-              </button>
-            ))}
+            <button className="question5-choice-button">A. SAR 25,000</button>
+            <button className="question5-choice-button">B. SAR 40,000</button>
+            <button className="question5-choice-button">C. SAR 55,000</button>
+            <button className="question5-choice-button">D. SAR 85,000</button>
+            <button className="question5-choice-button">E. SAR 110,000</button>
           </div>
 
           {/* Team Answer Section */}
           <div className="question5-team-answer-section">
-            <h4>Your answers (select all that apply)</h4>
+            <h4>Your answers</h4>
             <div className="question5-team-answer-container">
               {teams.map((team, index) => (
                 <div key={team.name} className="question5-team-answer-box">
                   <p>{team.name}</p>
-                  <div className="question5-answer-bubbles">
-                    {['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'].map((letter) => (
-                      <button
-                        key={letter}
-                        className={`question5-answer-bubble ${teamAnswers[index].includes(letter) ? 'selected' : ''}`}
-                        onClick={() => handleTeamAnswerChange(index, letter)}
-                      >
-                        {letter}
-                      </button>
-                    ))}
-                  </div>
+                  <select
+                    value={teamAnswers[index]}
+                    onChange={(e) => handleTeamAnswerChange(index, e.target.value)}
+                    className="question5-answer-select"
+                  >
+                    <option value="" disabled>Select answer</option>
+                    <option value="A">A</option>
+                    <option value="B">B</option>
+                    <option value="C">C</option>
+                    <option value="D">D</option>
+                    <option value="E">E</option>
+                  </select>
                 </div>
               ))}
             </div>
@@ -190,51 +179,47 @@ const Question5 = ({ teams, onAnswer, onNextQuestion, onAwardPoints }) => {
         </div>
       ) : (
         <div className="question5-result-section">
-          <h4>Answers:</h4>
-          {answerOptions.map((option, index) => {
-            const letter = String.fromCharCode(65 + index);
-            return (
-              <p key={index} className={correctAnswer.includes(letter) ? 'question5-correct-answer' : 'question5-incorrect-answer'}>
-                {option}
-              </p>
-            );
-          })}
+          <h4>Correct Answer:</h4>
+          <p className="question5-correct-answer">D. SAR 85,000</p>
+          <p onClick={toggleDetailedAnswer} className="question5-toggle-detailed-answer">
+            Click to {detailedAnswerShown ? 'hide detailed explanation ⬆️' : 'see detailed explanation ⬇️'}
+          </p>
+
+          {detailedAnswerShown && (
+            <div className="question5-expanded-answer">
+              <div className="question5-calculation">
+                <h4>How the money grows:</h4>
+                <ul>
+                  <li>Monthly investment: SAR 500</li>
+                  <li>Investment period: 10 years</li>
+                  <li>Total contributions: SAR 60,000 (500 × 12 × 10)</li>
+                  <li>Annual return: 7%</li>
+                  <li>Final amount: ~SAR 85,000</li>
+                </ul>
+                <p>The extra SAR 25,000 comes from compound growth - your returns earn returns! This shows the power of:</p>
+                <ul>
+                  <li>Regular investing</li>
+                  <li>Long-term perspective</li>
+                  <li>Compound returns</li>
+                  <li>Index fund investing</li>
+                </ul>
+              </div>
+            </div>
+          )}
 
           {/* Display each team's answer with comparison */}
           <div className="question5-team-answer-comparison">
             {teams.map((team, index) => (
               <div key={team.name} className="question5-team-answer-box">
                 <p>{team.name}</p>
-                <div className="question5-answers-display">
-                  {teamAnswers[index].map((answer, answerIndex) => (
-                    <div
-                      key={answerIndex}
-                      className={correctAnswer.includes(answer) ? 'question5-correct' : 'question5-incorrect'}
-                    >
-                      {answer}
-                    </div>
-                  ))}
-                  {teamAnswers[index].length === 0 && <div className="question5-no-answer">-</div>}
+                <div className={teamAnswers[index] === correctAnswer ? 'question5-correct' : 'question5-incorrect'}>
+                  {teamAnswers[index] || '-'}
                 </div>
-                <p className="question5-team-score">
-                  Score: {teamAnswers[index].filter(answer => correctAnswer.includes(answer)).length}
-                </p>
               </div>
             ))}
           </div>
 
           <button className="question5-next-button" onClick={nextQuestion}>Next</button>
-        </div>
-      )}
-
-      {/* Hint Modal */}
-      {showHintModal && (
-        <div className="question5-hint-modal-overlay">
-          <div className="question5-hint-modal">
-            <h3>Hint</h3>
-            <p>Think about what actions show banks that you're reliable with money.</p>
-            <button onClick={() => setShowHintModal(false)} className="question5-close-modal-button">Close</button>
-          </div>
         </div>
       )}
 
