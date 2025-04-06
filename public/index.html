@@ -64,9 +64,26 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
 
     <!-- Security Headers -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://www.google-analytics.com https://*.firebaseio.com;" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; 
+      script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com https://*.firebase.com https://*.firebaseio.com https://*.firebaseapp.com https://apis.google.com; 
+      style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; 
+      font-src 'self' https://fonts.gstatic.com; 
+      img-src 'self' data: https: blob:; 
+      connect-src 'self' 
+        https://www.google-analytics.com 
+        https://*.firebaseio.com 
+        https://*.firebase.com 
+        https://*.firebaseapp.com 
+        https://firebase.googleapis.com 
+        https://firestore.googleapis.com 
+        https://*.googleapis.com 
+        https://securetoken.googleapis.com 
+        https://identitytoolkit.googleapis.com 
+        https://region1.google-analytics.com 
+        wss://*.firebaseio.com
+        data:
+        blob:;" />
     <meta http-equiv="X-Content-Type-Options" content="nosniff" />
-    <meta http-equiv="X-Frame-Options" content="DENY" />
     <meta http-equiv="X-XSS-Protection" content="1; mode=block" />
     <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
 
