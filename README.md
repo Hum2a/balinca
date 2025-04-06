@@ -1,70 +1,165 @@
-# Getting Started with Create React App
+# 🎯 Financial Quiz Application
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<div align="center">
 
-## Available Scripts
+[![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)](https://reactjs.org/)
+[![Firebase](https://img.shields.io/badge/Firebase-039BE5?style=for-the-badge&logo=Firebase&logoColor=white)](https://firebase.google.com/)
+[![React Router](https://img.shields.io/badge/React_Router-CA4245?style=for-the-badge&logo=react-router&logoColor=white)](https://reactrouter.com/)
 
-In the project directory, you can run:
+</div>
 
-### `npm start`
+A modern, interactive financial literacy quiz application designed to make learning about personal finance engaging and fun through team-based learning and interactive questions.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## ✨ Features
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+| Category | Description |
+|----------|-------------|
+| 🔐 Authentication | Secure sign-in and registration system |
+| 🎮 Interactive Quiz | Engaging financial questions with real-time feedback |
+| 👥 Team-Based Learning | Collaborative scoring system for group learning |
+| 📊 Progress Tracking | Real-time score updates and progress monitoring |
+| 💡 Educational Content | Detailed explanations and helpful hints |
+| 📱 Responsive Design | Optimized for all devices and screen sizes |
 
-### `npm test`
+## 🛠 Tech Stack
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+<div align="center">
 
-### `npm run build`
+| Frontend | Backend | Styling |
+|----------|---------|---------|
+| React.js | Firebase | CSS3 |
+| React Router | Firestore | Flexbox |
+| Context API | Authentication | Grid |
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+</div>
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## 📁 Project Structure
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```bash
+src/
+├── 📂 components/         # Reusable components
+├── 📂 pages/             # Page components
+│   └── 📄 Homepage.js    # Authentication page
+├── 📂 quiz/              # Quiz related components
+│   ├── 📂 questions/     # Individual quiz questions
+│   ├── 📂 styles/        # Quiz specific styles
+│   ├── 📂 widgets/       # Reusable quiz widgets
+│   ├── 📄 FinancialQuiz.js
+│   ├── 📄 QuizLandingPage.js
+│   └── 📄 ResultsScreen.js
+└── 📂 firebase/          # Firebase configuration
+```
 
-### `npm run eject`
+## 🚀 Getting Started
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### Prerequisites
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- Node.js (v14 or higher)
+- npm or yarn
+- Firebase account
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### Installation
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+1. **Clone the repository**
+   ```bash
+   git clone [repository-url]
+   cd financial-quiz
+   ```
 
-## Learn More
+2. **Install dependencies**
+   ```bash
+   npm install
+   # or
+   yarn install
+   ```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+3. **Set up Firebase**
+   - Create a Firebase project
+   - Add your Firebase configuration to `src/firebase/initFirebase.js`
+   - Enable Authentication and Firestore
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+4. **Start the development server**
+   ```bash
+   npm start
+   # or
+   yarn start
+   ```
 
-### Code Splitting
+   The application will be available at [http://localhost:3000](http://localhost:3000)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## 📝 Usage Guide
 
-### Analyzing the Bundle Size
+### 1. Authentication
+- Sign in with existing credentials
+- Register a new account
+- Password recovery options
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+### 2. Quiz Landing Page
+- View quiz instructions
+- Set up teams
+- Configure quiz settings
+- Start the quiz
 
-### Making a Progressive Web App
+### 3. Financial Quiz
+- Answer questions about personal finance
+- Use hints when needed
+- Track team scores
+- View detailed explanations
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+### 4. Results
+- View final scores
+- Review answers
+- Access learning resources
+- Download results
 
-### Advanced Configuration
+## 🛠 Available Scripts
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+| Script | Description |
+|--------|-------------|
+| `npm start` | Runs the app in development mode |
+| `npm test` | Launches the test runner |
+| `npm run build` | Builds the app for production |
 
-### Deployment
+## 🌐 Deployment
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+The application can be deployed to various platforms:
 
-### `npm run build` fails to minify
+<div align="center">
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+| Platform | Description |
+|----------|-------------|
+| [Firebase Hosting](https://firebase.google.com/docs/hosting) | Recommended for Firebase integration |
+| [Vercel](https://vercel.com) | Great for React applications |
+| [Netlify](https://www.netlify.com) | Simple deployment process |
+| [AWS Amplify](https://aws.amazon.com/amplify/) | Full-stack deployment solution |
+
+</div>
+
+## 🤝 Contributing
+
+We welcome contributions! Please follow these steps:
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🙏 Acknowledgments
+
+- [Create React App](https://github.com/facebook/create-react-app) for the project setup
+- [Firebase](https://firebase.google.com) for authentication and database services
+- [React Router](https://reactrouter.com) for navigation
+- All contributors and supporters of this project
+
+---
+
+<div align="center">
+
+Made with ❤️ by [Your Name/Organization]
+
+</div>
