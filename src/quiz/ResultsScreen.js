@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './ResultsScreen.css';
-import crownIcon from '../../../assets/icons/crown.png';
+import crownIcon from '../assets/icons/crown.png';
 
 const ResultsScreen = ({ teams, quizComplete, onNextQuestion }) => {
   const [barWidths, setBarWidths] = useState({});
@@ -44,7 +44,7 @@ const ResultsScreen = ({ teams, quizComplete, onNextQuestion }) => {
 
   const nextOrNavigateToSimulation = () => {
     if (quizComplete) {
-      navigate('/quiz-simulation');
+      navigate('/sim-setup');
     } else {
       onNextQuestion();
     }
@@ -76,7 +76,7 @@ const ResultsScreen = ({ teams, quizComplete, onNextQuestion }) => {
   return (
     <div className="results-container">
       <button onClick={goHome} className="home-button">Go to Home</button>
-      <button onClick={() => navigate('/quiz-simulation')} className="simulation-button">
+      <button onClick={() => navigate('/sim-setup')} className="simulation-button">
         Go to Simulation
       </button>
       

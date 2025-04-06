@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import '../../styles/QuizLandingPage.css';
+import './QuizLandingPage.css';
 
 // Import icons (you'll need to add these to your assets folder)
-import piggyBankIcon from '../../../assets/icons/piggy_bank.png';
-import dollarTreeIcon from '../../../assets/icons/dollar_tree.png';
-import chartIcon from '../../../assets/icons/chart.png';
-import cardIcon from '../../../assets/icons/card.png';
-import moneyIcon from '../../../assets/icons/money.png';
-import seedIcon from '../../../assets/icons/seed.png';
-import graduateIcon from '../../../assets/icons/graduate.png';
+import piggyBankIcon from '../assets/icons/piggy_bank.png';
+import dollarTreeIcon from '../assets/icons/dollar_tree.png';
+import chartIcon from '../assets/icons/chart.png';
+import cardIcon from '../assets/icons/card.png';
+import moneyIcon from '../assets/icons/money.png';
+import seedIcon from '../assets/icons/seed.png';
+import graduateIcon from '../assets/icons/graduate.png';
 
 const QuizLandingPage = () => {
   const navigate = useNavigate();
