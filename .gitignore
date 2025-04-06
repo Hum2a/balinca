@@ -136,6 +136,13 @@ firebase-debug.*.log
 *.key.p8.pfx
 *.key.p12.pfx
 *.key.pfx.pfx
+*.json
+*.jsonl
+*.jsonl.gz
+*.jsonl.bz2
+*.jsonl.zip
+*.jsonl.tar
+*.jsonl.tar.gz
 
 # OS generated files
 .DS_Store
