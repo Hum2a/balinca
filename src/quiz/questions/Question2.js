@@ -155,7 +155,7 @@ const Question2 = ({ teams, onAnswer, onNextQuestion, onAwardPoints }) => {
       )}
 
       {/* Tax Information Table */}
-      <div className="question2-tax-info-table">
+      {/* <div className="question2-tax-info-table">
         <table>
           <thead>
             <tr>
@@ -190,7 +190,7 @@ const Question2 = ({ teams, onAnswer, onNextQuestion, onAwardPoints }) => {
             </tr>
           </tbody>
         </table>
-      </div>
+      </div> */}
 
       {/* Hover Modal */}
       {hoverModal.show && (
@@ -210,11 +210,41 @@ const Question2 = ({ teams, onAnswer, onNextQuestion, onAwardPoints }) => {
 
           {/* Multiple Choice Options */}
           <div className="question2-choices-container">
-            <button className="question2-choice-button">A. The phone company increased prices randomly — next year it might go back down</button>
-            <button className="question2-choice-button">B. She should have saved more — saving 1,000 SAR wasn't enough from the beginning</button>
-            <button className="question2-choice-button">C. Prices went up because of inflation - her money lost value over time while just sitting there</button>
-            <button className="question2-choice-button">D. Inflation doesn't affect savings — she just waited too long to buy</button>
-            <button className="question2-choice-button">E. Inflation helps savers, not spenders — so its good that she saved her money</button>
+            <button 
+              className={`question2-choice-button ${teamAnswers.includes('A') ? 'active' : ''}`}
+              onClick={() => handleTeamAnswerChange(0, 'A')}
+              data-letter="A"
+            >
+              <span>The phone company increased prices randomly — next year it might go back down</span>
+            </button>
+            <button 
+              className={`question2-choice-button ${teamAnswers.includes('B') ? 'active' : ''}`}
+              onClick={() => handleTeamAnswerChange(0, 'B')}
+              data-letter="B"
+            >
+              <span>She should have saved more — saving 1,000 SAR wasn't enough from the beginning</span>
+            </button>
+            <button 
+              className={`question2-choice-button ${teamAnswers.includes('C') ? 'active' : ''}`}
+              onClick={() => handleTeamAnswerChange(0, 'C')}
+              data-letter="C"
+            >
+              <span>Prices went up because of inflation - her money lost value over time while just sitting there</span>
+            </button>
+            <button 
+              className={`question2-choice-button ${teamAnswers.includes('D') ? 'active' : ''}`}
+              onClick={() => handleTeamAnswerChange(0, 'D')}
+              data-letter="D"
+            >
+              <span>Inflation doesn't affect savings — she just waited too long to buy</span>
+            </button>
+            <button 
+              className={`question2-choice-button ${teamAnswers.includes('E') ? 'active' : ''}`}
+              onClick={() => handleTeamAnswerChange(0, 'E')}
+              data-letter="E"
+            >
+              <span>Inflation helps savers, not spenders — so its good that she saved her money</span>
+            </button>
           </div>
 
           {/* Team Answer Section */}
@@ -258,12 +288,32 @@ const Question2 = ({ teams, onAnswer, onNextQuestion, onAwardPoints }) => {
             <div className="question2-expanded-answer">
               <h4>Why this matters:</h4>
               <p>This example teaches us an important lesson about inflation and how it affects our savings:</p>
-              <ul>
-                <li>Inflation is when prices generally rise over time across the economy</li>
-                <li>When money sits as cash, its purchasing power (what you can buy with it) decreases</li>
-                <li>In this case, the same phone costs 100 SAR more (a 10% increase) after just one year</li>
-                <li>To protect against inflation, it's important to consider ways to grow your savings, not just store them</li>
-              </ul>
+              
+              <div className="question2-explanation-grid">
+                <div className="question2-explanation-card">
+                  <h5>📈 Understanding Inflation</h5>
+                  <p>Inflation is when prices generally rise over time across the economy. It's a natural economic process that affects everyone's purchasing power.</p>
+                </div>
+                
+                <div className="question2-explanation-card">
+                  <h5>💰 Impact on Savings</h5>
+                  <p>When money sits as cash, its purchasing power (what you can buy with it) decreases over time due to rising prices.</p>
+                </div>
+                
+                <div className="question2-explanation-card">
+                  <h5>📱 Real-World Example</h5>
+                  <p>In this case, the same phone costs 100 SAR more (a 10% increase) after just one year, showing how inflation affects everyday purchases.</p>
+                </div>
+                
+                <div className="question2-explanation-card">
+                  <h5>🎯 Smart Money Management</h5>
+                  <p>To protect against inflation, it's important to consider ways to grow your savings through investments, not just store them as cash.</p>
+                </div>
+              </div>
+
+              <div className="question2-explanation-highlight">
+                <p>💡 Key Takeaway: Simply saving money isn't enough - you need to think about how to protect its value against inflation over time.</p>
+              </div>
             </div>
           )}
 

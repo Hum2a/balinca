@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './styles/Question5.css';
 import lightningBolt from '../../assets/icons/Lightning Bolt.png';
 import moneyBars from '../../assets/icons/moneybars.png';
+import InvestmentCalculator from '../widgets/InvestmentCalculator';
 
 const Question5 = ({ teams, onAnswer, onNextQuestion, onAwardPoints }) => {
   const [showResults, setShowResults] = useState(false);
@@ -189,20 +190,44 @@ const Question5 = ({ teams, onAnswer, onNextQuestion, onAwardPoints }) => {
             <div className="question5-expanded-answer">
               <div className="question5-calculation">
                 <h4>How the money grows:</h4>
-                <ul>
-                  <li>Monthly investment: SAR 500</li>
-                  <li>Investment period: 10 years</li>
-                  <li>Total contributions: SAR 60,000 (500 × 12 × 10)</li>
-                  <li>Annual return: 7%</li>
-                  <li>Final amount: ~SAR 85,000</li>
-                </ul>
-                <p>The extra SAR 25,000 comes from compound growth - your returns earn returns! This shows the power of:</p>
-                <ul>
-                  <li>Regular investing</li>
-                  <li>Long-term perspective</li>
-                  <li>Compound returns</li>
-                  <li>Index fund investing</li>
-                </ul>
+                <div className="question5-investment-details">
+                  <div className="question5-detail-card">
+                    <span className="question5-detail-label">Monthly Investment</span>
+                    <span className="question5-detail-value">500 SAR</span>
+                  </div>
+                  <div className="question5-detail-card">
+                    <span className="question5-detail-label">Investment Period</span>
+                    <span className="question5-detail-value">10 years</span>
+                  </div>
+                  <div className="question5-detail-card">
+                    <span className="question5-detail-label">Total Contributions</span>
+                    <span className="question5-detail-value">60,000 SAR</span>
+                  </div>
+                  <div className="question5-detail-card">
+                    <span className="question5-detail-label">Annual Return</span>
+                    <span className="question5-detail-value">7%</span>
+                  </div>
+                  <div className="question5-detail-card highlight">
+                    <span className="question5-detail-label">Final Amount</span>
+                    <span className="question5-detail-value">85,000 SAR</span>
+                  </div>
+                </div>
+
+                <div className="question5-explanation">
+                  <h4>The Power of Compound Growth</h4>
+                  <ul className="question5-benefits-list">
+                    <li>Regular investing creates a strong foundation for wealth building</li>
+                    <li>Long-term perspective allows your money to grow exponentially</li>
+                    <li>Compound returns mean your returns earn their own returns</li>
+                    <li>Index fund investing provides broad market exposure</li>
+                  </ul>
+                </div>
+
+                <div className="question5-calculator-section">
+                  <h4>Try it yourself!</h4>
+                  <p>Use this calculator to explore different investment scenarios:</p>
+                  <InvestmentCalculator />
+                </div>
               </div>
             </div>
           )}

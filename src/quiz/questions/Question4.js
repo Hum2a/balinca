@@ -129,9 +129,24 @@ const Question4 = ({ teams, onAnswer, onNextQuestion, onAwardPoints }) => {
         <div className="question4-task-header-question">
           <p>Noura earns 5,000 SAR a month from her tutoring job. She carefully plans her monthly spending:</p>
           <ul className="question4-expense-list">
-            <li>Rent to parents: 1,200 SAR</li>
-            <li>Transport & food: 1,600 SAR</li>
-            <li>Entertainment & shopping: 1,000 SAR</li>
+            <li>
+              <span>
+                <span className="question4-expense-label">Rent to parents</span>
+                <span className="question4-expense-amount">1,200 SAR</span>
+              </span>
+            </li>
+            <li>
+              <span>
+                <span className="question4-expense-label">Transport & food</span>
+                <span className="question4-expense-amount">1,600 SAR</span>
+              </span>
+            </li>
+            <li>
+              <span>
+                <span className="question4-expense-label">Entertainment & shopping</span>
+                <span className="question4-expense-amount">1,000 SAR</span>
+              </span>
+            </li>
           </ul>
           <p>Last month, she also had an unexpected car repair that cost her 800 SAR.</p>
           <img src={moneyBars} alt="Task 4 Image" className="question4-task-image" />
@@ -220,33 +235,35 @@ const Question4 = ({ teams, onAnswer, onNextQuestion, onAwardPoints }) => {
               <div className="question4-calculation">
                 <h4>Monthly Budget Calculation:</h4>
                 <table className="question4-budget-table">
-                  <tr>
-                    <td>Monthly Income:</td>
-                    <td>5,000 SAR</td>
-                  </tr>
-                  <tr>
-                    <td colSpan="2" className="question4-expenses-header">Regular Expenses:</td>
-                  </tr>
-                  <tr>
-                    <td>Rent to parents:</td>
-                    <td>-1,200 SAR</td>
-                  </tr>
-                  <tr>
-                    <td>Transport & food:</td>
-                    <td>-1,600 SAR</td>
-                  </tr>
-                  <tr>
-                    <td>Entertainment & shopping:</td>
-                    <td>-1,000 SAR</td>
-                  </tr>
-                  <tr>
-                    <td>Unexpected car repair:</td>
-                    <td>-800 SAR</td>
-                  </tr>
-                  <tr className="question4-total-row">
-                    <td>Amount Saved:</td>
-                    <td>400 SAR</td>
-                  </tr>
+                  <tbody>
+                    <tr>
+                      <td>Monthly Income:</td>
+                      <td>5,000 SAR</td>
+                    </tr>
+                    <tr className="question4-expenses-header">
+                      <td colSpan="2">Regular Expenses:</td>
+                    </tr>
+                    <tr>
+                      <td>Rent to parents:</td>
+                      <td>-1,200 SAR</td>
+                    </tr>
+                    <tr>
+                      <td>Transport & food:</td>
+                      <td>-1,600 SAR</td>
+                    </tr>
+                    <tr>
+                      <td>Entertainment & shopping:</td>
+                      <td>-1,000 SAR</td>
+                    </tr>
+                    <tr>
+                      <td>Unexpected car repair:</td>
+                      <td>-800 SAR</td>
+                    </tr>
+                    <tr className="question4-total-row">
+                      <td>Amount Saved:</td>
+                      <td>400 SAR</td>
+                    </tr>
+                  </tbody>
                 </table>
 
                 <div className="question4-explanation">

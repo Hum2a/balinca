@@ -123,6 +123,19 @@ const InvestmentCalculator = () => {
   };
 
   useEffect(() => {
+    // Initial calculation on mount
+    calculate();
+    
+    // Cleanup chart instance on unmount
+    return () => {
+      if (chartInstance.current) {
+        chartInstance.current.destroy();
+      }
+    };
+  }, []); // Empty dependency array for initial mount only
+
+  // Recalculate when inputs change
+  useEffect(() => {
     calculate();
   }, [initialInvestment, monthlyContribution, investmentPeriod, rate]);
 

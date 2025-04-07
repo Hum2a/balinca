@@ -188,9 +188,9 @@ const Question3 = ({ teams, onAnswer, onNextQuestion, onAwardPoints }) => {
 
       {/* Assets and Liabilities Section */}
       <div className="question3-assets-liabilities-wrapper">
-        <div className="question3-assets-liabilities">
+        {/* <div className="question3-assets-liabilities">
           <div className="question3-card">
-            <h4>Assets</h4>
+            <h4>Current Assets</h4>
             <ul>
               <li>
                 <span className="question3-asset-icon">🏠 House</span>
@@ -207,7 +207,7 @@ const Question3 = ({ teams, onAnswer, onNextQuestion, onAwardPoints }) => {
             </ul>
           </div>
           <div className="question3-card">
-            <h4>Liabilities</h4>
+            <h4>Current Liabilities</h4>
             <ul>
               <li>
                 <span className="question3-asset-icon">🏠 
@@ -225,6 +225,93 @@ const Question3 = ({ teams, onAnswer, onNextQuestion, onAwardPoints }) => {
                 <span className="question3-asset-value">£20,000</span>
               </li>
             </ul>
+          </div>
+        </div> */}
+
+        <div className="question3-options-grid">
+          <div className="question3-option-card">
+            <h4><span className="option-icon">⌚</span> Luxury Items</h4>
+            <div className="question3-option-details">
+              <div className="question3-option-detail">
+                <span className="question3-option-label">Limited Edition Watch</span>
+                <span className="question3-option-value">SAR 7,000</span>
+              </div>
+              <div className="question3-option-detail">
+                <span className="question3-option-label">Designer Trainers</span>
+                <span className="question3-option-value">SAR 3,000</span>
+              </div>
+              <div className="question3-option-impact question3-impact-negative">
+                No financial return, 100% depreciation
+              </div>
+            </div>
+          </div>
+
+          <div className="question3-option-card">
+            <h4><span className="option-icon">💳</span> Debt Repayment</h4>
+            <div className="question3-option-details">
+              <div className="question3-option-detail">
+                <span className="question3-option-label">Car Loan (10% APR)</span>
+                <span className="question3-option-value">SAR 10,000</span>
+              </div>
+              <div className="question3-option-detail">
+                <span className="question3-option-label">Annual Interest Saved</span>
+                <span className="question3-option-value">SAR 1,000</span>
+              </div>
+              <div className="question3-option-impact question3-impact-positive">
+                Reduces monthly payments and saves on interest
+              </div>
+            </div>
+          </div>
+
+          <div className="question3-option-card">
+            <h4><span className="option-icon">🏦</span> Savings Account</h4>
+            <div className="question3-option-details">
+              <div className="question3-option-detail">
+                <span className="question3-option-label">Interest Rate</span>
+                <span className="question3-option-value">2.5% APY</span>
+              </div>
+              <div className="question3-option-detail">
+                <span className="question3-option-label">Annual Return</span>
+                <span className="question3-option-value">SAR 250</span>
+              </div>
+              <div className="question3-option-impact question3-impact-neutral">
+                Safe but modest returns
+              </div>
+            </div>
+          </div>
+
+          <div className="question3-option-card">
+            <h4><span className="option-icon">💻</span> App Development Course</h4>
+            <div className="question3-option-details">
+              <div className="question3-option-detail">
+                <span className="question3-option-label">Course Cost</span>
+                <span className="question3-option-value">SAR 10,000</span>
+              </div>
+              <div className="question3-option-detail">
+                <span className="question3-option-label">Potential Income</span>
+                <span className="question3-option-value">SAR 15,000+/mo</span>
+              </div>
+              <div className="question3-option-impact question3-impact-neutral">
+                Long-term potential with some uncertainty
+              </div>
+            </div>
+          </div>
+
+          <div className="question3-option-card">
+            <h4><span className="option-icon">🪙</span> SkibidiCoin Investment</h4>
+            <div className="question3-option-details">
+              <div className="question3-option-detail">
+                <span className="question3-option-label">Investment Amount</span>
+                <span className="question3-option-value">SAR 10,000</span>
+              </div>
+              <div className="question3-option-detail">
+                <span className="question3-option-label">Risk Level</span>
+                <span className="question3-option-value">Very High</span>
+              </div>
+              <div className="question3-option-impact question3-impact-negative">
+                High risk of total loss
+              </div>
+            </div>
           </div>
         </div>
       </div>
