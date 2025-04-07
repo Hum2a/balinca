@@ -1,11 +1,18 @@
 h2 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 2rem;
   text-align: center;
-  margin-bottom: 20px;
+  letter-spacing: -0.5px;
 }
 
 h3 {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #2d3748;
+  margin: 2rem 0 1.5rem;
   text-align: center;
-  margin-bottom: 20px;
 }
 
 label {
@@ -20,41 +27,45 @@ th {
 }
 
 .simulationcontrols-container {
-  margin: 0 auto;
-  padding: 30px;
-  background: #f9f9f9;
-  border-radius: 10px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  margin: 2rem auto;
+  padding: 2.5rem;
+  background: linear-gradient(145deg, #ffffff, #f5f7fa);
+  border-radius: 20px;
+  box-shadow: 
+    0 10px 30px rgba(0, 0, 0, 0.1),
+    0 1px 3px rgba(0, 0, 0, 0.05);
+  max-width: 1400px;
+  width: 95%;
 }
 
-.simulationcontrols-input-group, .simulationcontrols-quarterly-changes {
-  margin-bottom: 20px;
+.simulationcontrols-input-group {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
-table {
-  width: 100%;
-  margin-top: 20px;
-  border-collapse: collapse;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-}
-
-th, td {
-  border: 1px solid #ccc;
-  padding: 10px;
-  text-align: center;
-  color: #333;
-}
-
-th {
-  background-color: #e3f2fd;
+.simulationcontrols-input-group label {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #4a5568;
+  min-width: 100px;
 }
 
 .simulationcontrols-input[type=number] {
-  width: 100px;
-  padding: 8px;
-  border: none;
-  border-radius: 4px;
-  box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+  width: 120px;
+  padding: 0.75rem;
+  border: 2px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 1rem;
+  color: #2d3748;
+  background: #ffffff;
+  transition: all 0.2s;
+  text-align: center;
 }
 
 .simulationcontrols-input[type=number]::before,
@@ -81,6 +92,8 @@ th {
 }
 
 .simulationcontrols-input[type=number]:focus {
+  border-color: #4299e1;
+  box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.15);
   outline: none;
 }
 
@@ -145,19 +158,22 @@ button:active {
 }
 
 .simulationcontrols-save-button {
-  background-color: #FFD700;
-  color: #000000;
+  background: linear-gradient(135deg, #48bb78, #38a169);
+  box-shadow: 0 4px 12px rgba(72, 187, 120, 0.2);
+  color: #ffffff;
   border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
-  font-size: 16px;
+  padding: 1rem 2rem;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.3s, transform 0.2s;
+  transition: all 0.3s ease;
 }
 
 .simulationcontrols-save-button:hover {
-  background-color: #E6C300;
-  transform: scale(1.05);
+  background: linear-gradient(135deg, #38a169, #2f855a);
+  box-shadow: 0 6px 16px rgba(72, 187, 120, 0.3);
+  transform: translateY(-2px);
 }
 
 .simulationcontrols-save-button:focus {
@@ -197,18 +213,17 @@ button:active {
 }
 
 .simulationcontrols-quarter-button {
-  background: none;
-  border: none;
-  padding: 0;
-  margin: 0;
-  color: inherit;
-  text-align: left;
-  width: 100%;
-  cursor: pointer;
+  background: transparent;
+  color: #4299e1;
+  font-weight: 600;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  transition: all 0.2s;
 }
 
 .simulationcontrols-quarter-button:hover {
-  text-decoration: underline;
+  background: rgba(66, 153, 225, 0.1);
+  transform: none;
 }
 
 .simulationcontrols-event-modal-overlay {
@@ -217,7 +232,9 @@ button:active {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.7);
+  -webkit-backdrop-filter: blur(5px);
+  backdrop-filter: blur(5px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -225,12 +242,12 @@ button:active {
 }
 
 .simulationcontrols-event-modal {
-  background: white;
-  padding: 20px;
-  border-radius: 5px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 2.5rem;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
   width: 90%;
-  max-width: 500px;
+  max-width: 600px;
   z-index: 11;
 }
 
@@ -246,10 +263,19 @@ button:active {
 .simulationcontrols-event-modal input,
 .simulationcontrols-event-modal textarea {
   width: 100%;
-  padding: 8px;
-  margin-bottom: 10px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
+  padding: 1rem;
+  border: 2px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 1rem;
+  margin: 0.5rem 0 1.5rem;
+  transition: all 0.2s;
+}
+
+.simulationcontrols-event-modal input:focus,
+.simulationcontrols-event-modal textarea:focus {
+  border-color: #4299e1;
+  box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.15);
+  outline: none;
 }
 
 .simulationcontrols-event-modal textarea {
@@ -278,24 +304,23 @@ button:active {
 }
 
 .simulationcontrols-event-list-container {
-  background-color: #001f3f;
-  border-left: 3px solid #FFD700;
-  padding: 15px;
-  width: 300px;
-  color: #FFD700;
+  background: linear-gradient(135deg, #2d3748, #1a202c);
+  border-left: none;
+  padding: 2rem;
+  width: 400px;
+  box-shadow: -10px 0 30px rgba(0, 0, 0, 0.2);
+  color: #ffffff;
   position: fixed;
   right: 0;
   top: 0;
   bottom: 0;
   overflow-y: auto;
   transition: right 0.3s;
-  box-shadow: -5px 0 5px rgba(0,0,0,0.5);
   z-index: 1000;
 }
 
 .simulationcontrols-event-list {
-  list-style-type: none;
-  padding: 20px;
+  padding: 0;
 }
 
 .simulationcontrols-event-list h4 {
@@ -307,25 +332,27 @@ button:active {
 }
 
 .simulationcontrols-event-list li {
-  margin-bottom: 10px;
-  font-size: 1em;
-  padding: 10px 0;
-  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   cursor: pointer;
-  transition: background-color 0.3s, transform 0.2s;
+  transition: background-color 0.2s, transform 0.2s;
 }
 
 .simulationcontrols-event-list li:hover {
-  background-color: #FFD700;
-  color: #001f3f;
-  transform: scale(1.02);
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateX(5px);
 }
 
 .simulationcontrols-event-description {
-  display: block;
-  font-size: 0.9em;
-  color: #f8f8f8;
-  margin-top: 4px;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+  line-height: 1.5;
 }
 
 .simulationcontrols-event-list-container::-webkit-scrollbar {
@@ -342,20 +369,25 @@ button:active {
 }
 
 .simulationcontrols-toggle-event-list-button {
-  background-color: #ffc107;
-  color: #000080;
+  background: linear-gradient(135deg, #4299e1, #667eea);
+  color: #ffffff;
+  padding: 1rem 2rem;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 600;
   border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
-  font-size: 16px;
   cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(66, 153, 225, 0.2);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
   width: 100%;
-  transition: background-color 0.3s, transform 0.2s;
 }
 
 .simulationcontrols-toggle-event-list-button:hover {
-  background-color: #e0a800;
-  transform: scale(1.05);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(66, 153, 225, 0.3);
+  background: linear-gradient(135deg, #3182ce, #5a67d8);
 }
 
 .simulationcontrols-toggle-event-list-button:focus {
@@ -369,22 +401,27 @@ button:active {
 }
 
 .simulationcontrols-custom-file-upload {
-  display: inline-block;
-  padding: 10px 20px;
-  background-color: navy;
-  color: yellow;
-  border-radius: 8px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem 2rem;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: #ffffff;
+  border-radius: 12px;
   cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s;
+  transition: all 0.3s ease;
+  font-weight: 600;
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
+}
+
+.simulationcontrols-custom-file-upload:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(102, 126, 234, 0.3);
+  background: linear-gradient(135deg, #5a67d8, #6b46c1);
 }
 
 .simulationcontrols-custom-file-upload span {
   font-size: 16px;
-}
-
-.simulationcontrols-custom-file-upload:hover {
-  background-color: #45a049;
-  transform: translateY(-2px);
 }
 
 .simulationcontrols-modal-overlay {
@@ -424,4 +461,30 @@ button:active {
   margin: 15px 0;
   text-align: center;
   color: #333;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .simulationcontrols-container {
+    padding: 1.5rem;
+  }
+
+  .simulationcontrols-event-list-container {
+    width: 300px;
+  }
+}
+
+@media (max-width: 768px) {
+  h2 {
+    font-size: 2rem;
+  }
+
+  .simulationcontrols-input-group {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .simulationcontrols-event-list-container {
+    width: 100%;
+  }
 } 
