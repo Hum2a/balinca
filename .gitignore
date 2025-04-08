@@ -36,6 +36,48 @@
 .env.production
 .env.test
 
+# Additional sensitive files and directories
+# Firebase
+firebase-service-account*.json
+firebase-adminsdk*.json
+*firebase-adminsdk*.json
+*firebase*private-key*.json
+firebase.config.js
+serviceAccount*.json
+lifesmart-investing-tool-firebase-adminsdk*.json
+
+# API Keys and Secrets
+api-keys.js
+*api-key*.js
+*config.js
+*secrets*.js
+*secret*.js
+*credentials*.js
+*credential*.js
+*token*.js
+
+# Security files (added protection)
+firestore.rules.local
+storage.rules.local
+*.rules.local
+*.key
+*.pem
+*.crt
+*.p12
+*.pfx
+*.der
+*.keystore
+*.jks
+
+# Any file with the word secret or key in it
+*[sS]ecret*
+*[kK]ey*
+*[pP]assword*
+*[tT]oken*
+*[cC]redential*
+*[aA]uth*
+*[pP]rivate*
+
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
@@ -143,6 +185,22 @@ firebase-debug.*.log
 *.jsonl.zip
 *.jsonl.tar
 *.jsonl.tar.gz
+
+# Exclude sensitive JSON files but include essential project JSON files
+!package.json
+!package-lock.json
+!tsconfig.json
+!.eslintrc
+!.prettierrc
+!.stylelintrc
+!jest.config.json
+!firebase.json
+!firestore.indexes.json
+!firestore.rules
+!storage.rules
+!remix.config.json
+!next.config.json
+!nuxt.config.json
 
 # OS generated files
 .DS_Store
