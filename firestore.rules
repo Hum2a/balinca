@@ -1,0 +1,76 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Default deny all rule
+    match /{document=**} {
+      allow read, write: if false;
+    }
+    
+    // User profiles - only the user can read/write their own profile
+    match /userProfiles/{userId} {
+      allow read: if request.auth != null && request.auth.uid == userId;
+      allow create: if request.auth != null && request.auth.uid == userId;
+      allow update: if request.auth != null && request.auth.uid == userId
+                    && request.resource.data.keys().hasOnly(resource.data.keys());
+      allow delete: if false; // Prevent deletion of user profiles
+      
+      // Validate user profile data
+      function isValidUserProfile() {
+        let incomingData = request.resource.data;
+        return incomingData.displayName is string
+               && incomingData.displayName.size() > 0
+               && incomingData.displayName.size() < 100
+               && incomingData.email is string
+               && incomingData.createdAt is string;
+      }
+    }
+    
+    // User data - allow users to read/write their own data
+    match /users/{userId} {
+      allow read: if request.auth != null && request.auth.uid == userId;
+      allow write: if request.auth != null && request.auth.uid == userId;
+      
+      // Nested collections under a user
+      match /{nestedCollection}/{document} {
+        allow read: if request.auth != null && request.auth.uid == userId;
+        allow write: if request.auth != null && request.auth.uid == userId;
+      }
+    }
+    
+    // Login attempts - allow creation only
+    match /loginAttempts/{email} {
+      allow create: if request.auth == null; // Allow unauthenticated creation for login attempts
+      allow update: if request.auth == null; // Allow unauthenticated update for login attempts
+      allow read, delete: if false; // No one can read or delete login attempts
+    }
+    
+    // Stock data - allow read by authenticated users, write only by admins
+    match /Stock\ Market\ Data/{symbol} {
+      allow read: if request.auth != null;
+      allow write: if request.auth != null && isAdmin(request.auth.uid);
+    }
+    
+    // Admin check function
+    function isAdmin(uid) {
+      return exists(/databases/$(database)/documents/admins/$(uid));
+    }
+    
+    // Admin users collection
+    match /admins/{adminId} {
+      allow read: if request.auth != null && request.auth.uid == adminId;
+      allow write: if false; // Only allow writes through admin functions
+    }
+    
+    // Login codes
+    match /Login\ Codes/{code} {
+      allow read: if request.auth == null; // Allow unauthenticated reads for login code validation
+      allow write: if false; // Only allow writes through admin functions
+    }
+    
+    // Publicly accessible data
+    match /public/{document} {
+      allow read: if true; // Anyone can read public data
+      allow write: if false; // No one can write public data directly
+    }
+  }
+} 

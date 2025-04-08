@@ -6,6 +6,8 @@ import { doc, setDoc, getDoc } from 'firebase/firestore';
 import { db } from '../firebase/initFirebase';
 import Modal from '../quiz/widgets/modals/Modal';
 import '../pages/Homepage.css';
+import { sanitizeInput, isValidEmail, validatePassword } from '../utils/validation';
+import { encryptSensitiveFields } from '../utils/encryption';
 
 const Register = ({ onClose }) => {
   const [email, setEmail] = useState('');
@@ -18,6 +20,9 @@ const Register = ({ onClose }) => {
     message: '',
     type: 'success'
   });
+  const [passwordError, setPasswordError] = useState('');
+  const [displayName, setDisplayName] = useState('');
+  const [emailError, setEmailError] = useState('');
   
   const navigate = useNavigate();
   const { register, signInWithGoogle, signInWithApple } = useAuth();
@@ -42,13 +47,65 @@ const Register = ({ onClose }) => {
     }
   };
 
+  const handleEmailChange = (e) => {
+    const email = e.target.value;
+    setEmail(email);
+    
+    if (email && !isValidEmail(email)) {
+      setEmailError('Please enter a valid email address');
+    } else {
+      setEmailError('');
+    }
+  };
+
+  const handlePasswordChange = (e) => {
+    const newPassword = e.target.value;
+    setPassword(newPassword);
+    
+    const { isValid, message } = validatePassword(newPassword);
+    setPasswordError(isValid ? '' : message);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     
+    if (!isValidEmail(email)) {
+      setEmailError('Please enter a valid email address');
+      setModalConfig({
+        title: 'Validation Error',
+        message: 'Please enter a valid email address',
+        type: 'error'
+      });
+      setModalOpen(true);
+      return;
+    }
+    
+    const passwordValidation = validatePassword(password);
+    if (!passwordValidation.isValid) {
+      setPasswordError(passwordValidation.message);
+      setModalConfig({
+        title: 'Validation Error',
+        message: passwordValidation.message,
+        type: 'error'
+      });
+      setModalOpen(true);
+      return;
+    }
+    
     if (password !== confirmPassword) {
       setModalConfig({
-        title: 'Error',
-        message: 'Passwords do not match!',
+        title: 'Validation Error',
+        message: 'Passwords do not match',
+        type: 'error'
+      });
+      setModalOpen(true);
+      return;
+    }
+
+    if (!displayName.trim()) {
+      setModalConfig({
+        title: 'Validation Error',
+        message: 'Please provide your name',
         type: 'error'
       });
       setModalOpen(true);
@@ -56,45 +113,37 @@ const Register = ({ onClose }) => {
     }
 
     try {
-      // Validate login code first
       await validateLoginCode(loginCode);
 
-      // If code is valid, proceed with registration
-      const user = await register(email, password);
+      const sanitizedDisplayName = sanitizeInput(displayName.trim());
+      const user = await register(email, password, sanitizedDisplayName);
       console.log("Registered user:", user);
       
-      // Add initial funds to the user's account
-      await setDoc(doc(db, user.uid, 'Total Funds'), {
-        totalFunds: 10000
-      });
-
-      // Initialize login streak
-      const currentDate = new Date().toISOString().split('T')[0];
-      await setDoc(doc(db, user.uid, 'Login Streak'), {
-        lastLogin: currentDate,
-        streak: 1
-      });
-
-      // Update the login code with the last used information
-      const codeRef = doc(db, 'Login Codes', loginCode);
-      await setDoc(codeRef, {
-        lastUsedBy: user.uid,
-        active: true
-      }, { merge: true });
-
+      const userProfile = {
+        displayName: sanitizedDisplayName,
+        email: email,
+        createdAt: new Date().toISOString(),
+        preferences: {},
+      };
+      
+      const encryptedProfile = encryptSensitiveFields(userProfile, ['email']);
+      
+      await setDoc(doc(db, "userProfiles", user.uid), encryptedProfile);
+      
       setModalConfig({
-        title: 'Welcome to LifeSmart!',
-        message: 'Your account has been successfully created with £10,000 initial funds.',
+        title: 'Registration Successful',
+        message: 'Your account has been created successfully.',
         type: 'success'
       });
       setModalOpen(true);
+      
       setTimeout(() => {
-        navigate('/select');
-      }, 2000);
+        navigate('/select', { replace: true });
+      }, 1500);
     } catch (error) {
-      console.error("Authentication error:", error.message);
+      console.error("Registration error:", error);
       setModalConfig({
-        title: 'Authentication Error',
+        title: 'Registration Error',
         message: error.message,
         type: 'error'
       });
@@ -104,7 +153,6 @@ const Register = ({ onClose }) => {
 
   const handleSocialSignIn = async (provider) => {
     try {
-      // Validate login code first
       if (!loginCode) {
         throw new Error('Please enter a valid login code');
       }
@@ -117,14 +165,12 @@ const Register = ({ onClose }) => {
         user = await signInWithApple();
       }
       
-      // Initialize login streak for new social sign-ins
       const currentDate = new Date().toISOString().split('T')[0];
       await setDoc(doc(db, user.uid, 'Login Streak'), {
         lastLogin: currentDate,
         streak: 1
       });
 
-      // Update the login code with the last used information
       const codeRef = doc(db, 'Login Codes', loginCode);
       await setDoc(codeRef, {
         lastUsedBy: user.uid,
@@ -156,8 +202,21 @@ const Register = ({ onClose }) => {
     <>
       <div className="homescreen-form-container">
         <form onSubmit={handleSubmit} className="homescreen-modern-form">
-          <h2 className="homescreen-form-title">Join Us</h2>
+          <h2 className="homescreen-form-title">Create Account</h2>
           
+          <div className="homescreen-input-group">
+            <label htmlFor="displayName">Full Name</label>
+            <input
+              id="displayName"
+              type="text"
+              value={displayName}
+              onChange={(e) => setDisplayName(e.target.value)}
+              placeholder="Enter your full name"
+              required
+              className="homescreen-modern-input"
+            />
+          </div>
+
           <div className="homescreen-input-group">
             <label htmlFor="loginCode">Login Code</label>
             <input
@@ -201,11 +260,12 @@ const Register = ({ onClose }) => {
               id="email"
               type="email"
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={handleEmailChange}
               placeholder="Enter your email"
               required
-              className="homescreen-modern-input"
+              className={`homescreen-modern-input ${emailError ? 'error' : ''}`}
             />
+            {emailError && <div className="input-error">{emailError}</div>}
           </div>
           <div className="homescreen-input-group">
             <label htmlFor="password">Password</label>
@@ -213,11 +273,24 @@ const Register = ({ onClose }) => {
               id="password"
               type="password"
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="Enter your password"
+              onChange={handlePasswordChange}
+              placeholder="Create a password"
               required
-              className="homescreen-modern-input"
+              className={`homescreen-modern-input ${passwordError ? 'error' : ''}`}
             />
+            {passwordError && (
+              <div className="password-requirement-error">{passwordError}</div>
+            )}
+            <div className="password-requirements">
+              <p>Password must:</p>
+              <ul>
+                <li className={password.length >= 8 ? 'met' : ''}>Be at least 8 characters long</li>
+                <li className={/[A-Z]/.test(password) ? 'met' : ''}>Contain an uppercase letter</li>
+                <li className={/[a-z]/.test(password) ? 'met' : ''}>Contain a lowercase letter</li>
+                <li className={/[0-9]/.test(password) ? 'met' : ''}>Contain a number</li>
+                <li className={/[^A-Za-z0-9]/.test(password) ? 'met' : ''}>Contain a special character</li>
+              </ul>
+            </div>
           </div>
           <div className="homescreen-input-group">
             <label htmlFor="confirmPassword">Confirm Password</label>

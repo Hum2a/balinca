@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../firebase/auth';
 import { FaGoogle, FaApple } from 'react-icons/fa';
@@ -6,6 +6,9 @@ import { doc, getDoc, setDoc } from 'firebase/firestore';
 import { db } from '../firebase/initFirebase';
 import Modal from '../quiz/widgets/modals/Modal';
 import '../pages/Homepage.css';
+// Import security utilities
+import { protectForm } from '../utils/csrfProtection';
+import { sanitizeInput } from '../utils/validation';
 
 const Login = ({ onClose }) => {
   const [email, setEmail] = useState('');
@@ -19,6 +22,16 @@ const Login = ({ onClose }) => {
   
   const navigate = useNavigate();
   const { signIn, signInWithGoogle, signInWithApple } = useAuth();
+  
+  // Form reference for CSRF protection
+  const formRef = useRef(null);
+  
+  // Add CSRF protection
+  useEffect(() => {
+    if (formRef.current) {
+      protectForm(formRef.current);
+    }
+  }, []);
 
   const updateLoginStreak = async (userId) => {
     try {
@@ -150,7 +163,7 @@ const Login = ({ onClose }) => {
   return (
     <>
       <div className="homescreen-form-container">
-        <form onSubmit={handleSubmit} className="homescreen-modern-form">
+        <form onSubmit={handleSubmit} className="homescreen-modern-form" ref={formRef}>
           <h2 className="homescreen-form-title">Welcome Back</h2>
           
           <div className="homescreen-social-buttons">
@@ -187,6 +200,7 @@ const Login = ({ onClose }) => {
               placeholder="Enter your email"
               required
               className="homescreen-modern-input"
+              autoComplete="username"
             />
           </div>
           <div className="homescreen-input-group">
@@ -199,6 +213,7 @@ const Login = ({ onClose }) => {
               placeholder="Enter your password"
               required
               className="homescreen-modern-input"
+              autoComplete="current-password"
             />
           </div>
           <div className="homescreen-form-actions">
