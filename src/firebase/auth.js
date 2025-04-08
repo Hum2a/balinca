@@ -72,8 +72,22 @@ export const useAuth = () => {
     const SESSION_TIMEOUT = 30 * 60 * 1000; // 30 minutes
     
     // Store the session start time
-    updateDoc(doc(db, "users", user.uid), {
-      lastActive: serverTimestamp()
+    const userDocRef = doc(db, "users", user.uid);
+    getDoc(userDocRef).then(docSnapshot => {
+      if (!docSnapshot.exists()) {
+        // Create the user document if it doesn't exist
+        return setDoc(userDocRef, {
+          email: user.email,
+          displayName: user.displayName || null,
+          createdAt: serverTimestamp(),
+          lastActive: serverTimestamp()
+        });
+      } else {
+        // Update lastActive if document exists
+        return updateDoc(userDocRef, {
+          lastActive: serverTimestamp()
+        });
+      }
     }).catch(err => console.error("Error updating last active time:", err));
     
     // Check session every minute
