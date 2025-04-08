@@ -66,11 +66,11 @@
     <!-- Security Headers -->
     <meta http-equiv="Content-Security-Policy" content="
       default-src 'self'; 
-      script-src 'self' https://www.googletagmanager.com https://www.google-analytics.com https://*.firebase.com https://*.firebaseio.com https://*.firebaseapp.com https://apis.google.com; 
-      style-src 'self' https://fonts.googleapis.com; 
+      script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com https://*.firebase.com https://*.firebaseio.com https://*.firebaseapp.com https://apis.google.com; 
+      style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; 
       font-src 'self' https://fonts.gstatic.com; 
       img-src 'self' data: https:; 
-      connect-src 'self' 
+      connect-src 'self' data: blob:
         https://www.google-analytics.com 
         https://*.firebaseio.com 
         https://*.firebase.com 
