@@ -1,18 +1,67 @@
 # https://www.robotstxt.org/robotstxt.html
-# Allow all crawlers
+
+# Global settings for all crawlers
 User-agent: *
+
+# Allow access to main application routes
 Allow: /
+Allow: /quiz
+Allow: /quiz-landing
+Allow: /financial-quiz
+Allow: /results
+Allow: /sitemap.xml
+Allow: /*.js
+Allow: /*.css
+Allow: /*.png
+Allow: /*.jpg
+Allow: /*.svg
+Allow: /*.ico
+Allow: /manifest.json
 
-# Sitemap location
-Sitemap: https://balinca.onrender.com/sitemap.xml
-
-# Disallow admin and private areas
+# Disallow access to sensitive areas
 Disallow: /admin/
 Disallow: /private/
 Disallow: /api/
+Disallow: /sim-setup/
+Disallow: /group-creation/
+Disallow: /simulation/
+Disallow: /auth/
+Disallow: /*?*
+Disallow: /*/private/*
+Disallow: /*.json$
+Disallow: /*.txt$
+Disallow: /firebase/*
 
-# Crawl-delay for heavy pages
+# Prevent crawling of user-specific pages
+Disallow: /user/
+Disallow: /profile/
+Disallow: /settings/
+Disallow: /dashboard/
+
+# Prevent caching of dynamic content
+Disallow: /*?*cache=
+
+# Crawl-delay settings
+# Adjust based on server capacity - 10 seconds between requests
 Crawl-delay: 10
 
-# Host directive
+# Rate limiting for specific bots
+User-agent: AdsBot-Google
+Crawl-delay: 5
+
+User-agent: Googlebot
+Crawl-delay: 5
+
+User-agent: Googlebot-Image
+Allow: /*.jpg
+Allow: /*.jpeg
+Allow: /*.gif
+Allow: /*.png
+Allow: /*.webp
+Disallow: /
+
+# Host directive - specify canonical hostname
 Host: https://balinca.onrender.com
+
+# Sitemap declaration
+Sitemap: https://balinca.onrender.com/sitemap.xml
