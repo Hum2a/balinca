@@ -201,6 +201,7 @@ firebase-debug.*.log
 !remix.config.json
 !next.config.json
 !nuxt.config.json
+!.env.example
 
 # OS generated files
 .DS_Store
