@@ -7,17 +7,7 @@ const Question7 = ({ teams, onAnswer, onNextQuestion, onAwardPoints }) => {
   const [showResults, setShowResults] = useState(false);
   const [timer, setTimer] = useState(240);
   const [timerStarted, setTimerStarted] = useState(false);
-  const [showGlossary, setShowGlossary] = useState(false);
   const [showHintModal, setShowHintModal] = useState(false);
-  const [glossaryTitle, setGlossaryTitle] = useState('');
-  const [glossaryContent, setGlossaryContent] = useState('');
-  const [hoverModal, setHoverModal] = useState({
-    show: false,
-    title: "",
-    content: "",
-    x: 0,
-    y: 0,
-  });
   const [teamAnswers, setTeamAnswers] = useState(Array(teams.length).fill(''));
   const [detailedAnswerShown, setDetailedAnswerShown] = useState(false);
 
@@ -51,21 +41,6 @@ const Question7 = ({ teams, onAnswer, onNextQuestion, onAwardPoints }) => {
     }
   };
 
-  const showHoverModal = (title, content, event) => {
-    if (!event) return;
-    setHoverModal({
-      show: true,
-      title,
-      content,
-      x: event.clientX + 15,
-      y: event.clientY + 15
-    });
-  };
-
-  const hideHoverModal = () => {
-    setHoverModal(prev => ({ ...prev, show: false }));
-  };
-
   const handleTeamAnswerChange = (index, value) => {
     const newAnswers = [...teamAnswers];
     newAnswers[index] = value;
@@ -74,11 +49,11 @@ const Question7 = ({ teams, onAnswer, onNextQuestion, onAwardPoints }) => {
 
   const submitAnswers = () => {
     setShowResults(true);
+    const pointsArray = teamAnswers.map(answer => (answer === correctAnswer ? 2 : 0));
+    onAwardPoints(pointsArray);
   };
 
   const nextQuestion = () => {
-    const pointsArray = teamAnswers.map(answer => (answer === correctAnswer ? 2 : 0));
-    onAwardPoints(pointsArray);
     onNextQuestion();
   };
 
@@ -88,12 +63,12 @@ const Question7 = ({ teams, onAnswer, onNextQuestion, onAwardPoints }) => {
 
   return (
     <div className="question7-container">
-      {/* Header and Progress Bar */}
+      {/* Progress Bar Container */}
       <div className="question7-progress-bar-container">
         <div className="question7-progress-bar">
           <div className="question7-progress" style={{ width: `${progressBarWidth}%` }}></div>
         </div>
-
+        
         <div className="question7-timer-container">
           {!timerStarted ? (
             <button onClick={startTimer} className="question7-start-timer-button">
@@ -107,7 +82,7 @@ const Question7 = ({ teams, onAnswer, onNextQuestion, onAwardPoints }) => {
         </div>
       </div>
 
-      {/* Task Description */}
+      {/* Task Header */}
       <div className="question7-task-header">
         <div className="question7-top-layer">
           <div className="question7-points-section">
@@ -119,23 +94,12 @@ const Question7 = ({ teams, onAnswer, onNextQuestion, onAwardPoints }) => {
             <button className="question7-hint-button" onClick={() => setShowHintModal(true)}>Hint?</button>
           </div>
         </div>
+        <img src={moneyBars} alt="Task 7 Image" className="question7-task-image" />
         <div className="question7-task-header-question">
           <p>Noura has been tutoring younger students for some time and now wants to take her learning further. She's found a great short course in digital marketing that she believes will help her land freelance work in the future.</p>
           <p>The total cost comes to 10,000 SAR. She doesn't have the money saved but plans to repay the full amount within five months from her earnings.</p>
-          <img src={moneyBars} alt="Task 7 Image" className="question7-task-image" />
         </div>
       </div>
-
-      {/* Hint Modal */}
-      {showHintModal && (
-        <div className="question7-hint-modal-overlay">
-          <div className="question7-hint-modal">
-            <h3>Hint</h3>
-            <p>Consider the interest rates, repayment terms, and potential risks of each option. Think about which option provides the most stability and flexibility for her five-month repayment plan.</p>
-            <button onClick={() => setShowHintModal(false)} className="question7-close-modal-button">Close</button>
-          </div>
-        </div>
-      )}
 
       {!showResults ? (
         <div>
@@ -212,6 +176,7 @@ const Question7 = ({ teams, onAnswer, onNextQuestion, onAwardPoints }) => {
           )}
 
           {/* Display each team's answer with comparison */}
+          <h4 className="question7-your-answers">Your answers</h4>
           <div className="question7-team-answer-comparison">
             {teams.map((team, index) => (
               <div key={team.name} className="question7-team-answer-box">
@@ -227,11 +192,14 @@ const Question7 = ({ teams, onAnswer, onNextQuestion, onAwardPoints }) => {
         </div>
       )}
 
-      {/* Hover Modal */}
-      {hoverModal.show && (
-        <div className="question7-hover-modal" style={{ top: hoverModal.y + 'px', left: hoverModal.x + 'px' }}>
-          <h3>{hoverModal.title}</h3>
-          <p>{hoverModal.content}</p>
+      {/* Hint Modal */}
+      {showHintModal && (
+        <div className="question7-hint-modal-overlay">
+          <div className="question7-hint-modal">
+            <h3>Hint</h3>
+            <p>Consider the interest rates, repayment terms, and potential risks of each option. Think about which option provides the most stability and flexibility for her five-month repayment plan.</p>
+            <button onClick={() => setShowHintModal(false)} className="question7-close-modal-button">Close</button>
+          </div>
         </div>
       )}
     </div>

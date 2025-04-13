@@ -7,10 +7,7 @@ const Question6 = ({ teams, onAnswer, onNextQuestion, onAwardPoints }) => {
   const [showResults, setShowResults] = useState(false);
   const [timer, setTimer] = useState(240);
   const [timerStarted, setTimerStarted] = useState(false);
-  const [showGlossary, setShowGlossary] = useState(false);
   const [showHintModal, setShowHintModal] = useState(false);
-  const [glossaryTitle, setGlossaryTitle] = useState('');
-  const [glossaryContent, setGlossaryContent] = useState('');
   const [hoverModal, setHoverModal] = useState({
     show: false,
     title: "",
@@ -55,18 +52,18 @@ const Question6 = ({ teams, onAnswer, onNextQuestion, onAwardPoints }) => {
     }
   };
 
-  const showHoverModal = (title, content, event) => {
+  const showModal = (term, event) => {
     if (!event) return;
     setHoverModal({
       show: true,
-      title,
-      content,
+      title: term,
+      content: term === 'SIMAH' ? 'The Saudi Credit Bureau (SIMAH) is Saudi Arabia\'s first licensed credit bureau. It collects and maintains credit information about individuals and companies in Saudi Arabia.' : '',
       x: event.clientX + 15,
       y: event.clientY + 15
     });
   };
 
-  const hideHoverModal = () => {
+  const hideModal = () => {
     setHoverModal(prev => ({ ...prev, show: false }));
   };
 
@@ -76,7 +73,7 @@ const Question6 = ({ teams, onAnswer, onNextQuestion, onAwardPoints }) => {
     
     if (teamAnswerSet.has(letter)) {
       teamAnswerSet.delete(letter);
-    } else if (teamAnswerSet.size < 3) {  // Limit to 3 selections
+    } else if (teamAnswerSet.size < 3) {
       teamAnswerSet.add(letter);
     }
     
@@ -92,7 +89,6 @@ const Question6 = ({ teams, onAnswer, onNextQuestion, onAwardPoints }) => {
     const pointsArray = teamAnswers.map(answers => {
       const correctCount = answers.filter(answer => correctAnswers.includes(answer)).length;
       const incorrectCount = answers.filter(answer => !correctAnswers.includes(answer)).length;
-      // Award 1 point per correct answer, subtract 1 point per incorrect answer, minimum 0
       return Math.max(0, correctCount - incorrectCount);
     });
     onAwardPoints(pointsArray);
@@ -105,12 +101,12 @@ const Question6 = ({ teams, onAnswer, onNextQuestion, onAwardPoints }) => {
 
   return (
     <div className="question6-container">
-      {/* Header and Progress Bar */}
+      {/* Progress Bar Container */}
       <div className="question6-progress-bar-container">
         <div className="question6-progress-bar">
           <div className="question6-progress" style={{ width: `${progressBarWidth}%` }}></div>
         </div>
-
+        
         <div className="question6-timer-container">
           {!timerStarted ? (
             <button onClick={startTimer} className="question6-start-timer-button">
@@ -124,9 +120,9 @@ const Question6 = ({ teams, onAnswer, onNextQuestion, onAwardPoints }) => {
         </div>
       </div>
 
-      {/* Task Description */}
+      {/* Task Header */}
       <div className="question6-task-header">
-        <div className="question6-top-layer">
+        <div className="question6-header-content">
           <div className="question6-points-section">
             <h3>Challenge 6</h3>
             <img src={lightningBolt} alt="Lightning Bolt" className="question6-lightning-bolt" />
@@ -136,34 +132,25 @@ const Question6 = ({ teams, onAnswer, onNextQuestion, onAwardPoints }) => {
             <button className="question6-hint-button" onClick={() => setShowHintModal(true)}>Hint?</button>
           </div>
         </div>
-        <div className="question6-task-header-question">
-          <p>Faisal, a friend of Omar and Noura, has just turned 18. He recently opened his first bank account and wants to prepare for adult life — including getting a car loan or credit card in the future.</p>
-          <p>He's heard that in Saudi Arabia, your credit history is tracked by 
-            <span 
-              className="question6-clickable-term"
-              onMouseEnter={(e) => showHoverModal('SIMAH', 'The Saudi Credit Bureau (SIMAH) is Saudi Arabia\'s first licensed credit bureau. It collects and maintains credit information about individuals and companies in Saudi Arabia.', e)}
-              onMouseLeave={hideHoverModal}
-            > SIMAH</span> — the Saudi Credit Bureau. SIMAH collects information about your financial behaviour, like how reliably you pay bills, loans, and credit card balances.</p>
-          <img src={moneyBars} alt="Task 6 Image" className="question6-task-image" />
-        </div>
+        <img src={moneyBars} alt="Task 6 Image" className="question6-task-image" />
+        <p>
+          Faisal, a friend of Omar and Noura, has just turned 18. He recently opened his first bank account and wants to prepare for adult life — including getting a car loan or credit card in the future.
+        </p>
+        <p>
+          He's heard that in Saudi Arabia, your credit history is tracked by 
+          <span 
+            className="question6-clickable-term"
+            onMouseOver={(e) => showModal('SIMAH', e)}
+            onMouseLeave={hideModal}
+          > SIMAH</span> — the Saudi Credit Bureau. SIMAH collects information about your financial behaviour, like how reliably you pay bills, loans, and credit card balances.
+        </p>
       </div>
-
-      {/* Hint Modal */}
-      {showHintModal && (
-        <div className="question6-hint-modal-overlay">
-          <div className="question6-hint-modal">
-            <h3>Hint</h3>
-            <p>Think about what shows financial responsibility. Good credit scores come from showing you can use credit wisely, not from avoiding it completely or using it recklessly.</p>
-            <button onClick={() => setShowHintModal(false)} className="question6-close-modal-button">Close</button>
-          </div>
-        </div>
-      )}
 
       {!showResults ? (
         <div>
           {/* Question Section */}
           <div className="question6-question-section">
-            <p className="question6-question-text">Which 3 actions will actually help him build a good credit score with SIMAH?</p>
+            <p className="question6-question">Which 3 actions will actually help him build a good credit score with SIMAH?</p>
           </div>
 
           {/* Multiple Choice Options */}
@@ -212,31 +199,26 @@ const Question6 = ({ teams, onAnswer, onNextQuestion, onAwardPoints }) => {
             );
           })}
 
-          <p onClick={toggleDetailedAnswer} className="question6-toggle-detailed-answer">
-            Click to {detailedAnswerShown ? 'hide explanation ⬆️' : 'see explanation ⬇️'}
-          </p>
-
-          {detailedAnswerShown && (
-            <div className="question6-expanded-answer">
-              <h4>Why these answers are correct:</h4>
-              <ul>
-                <li><strong>A. Paying bills on time:</strong> Shows you're reliable — this is tracked by SIMAH.</li>
-                <li><strong>D. Checking SIMAH report:</strong> Helps you catch errors that might affect your score.</li>
-                <li><strong>E. Using credit responsibly:</strong> Using credit and repaying in full builds trust and keeps your utilisation ratio low.</li>
-              </ul>
-              <h4>Common misconceptions:</h4>
-              <ul>
-                <li>Using only cash (B) doesn't help build credit - you need to show you can handle credit responsibly.</li>
-                <li>Applying for many cards (C) can hurt your score - each application is recorded.</li>
-                <li>Savings account balance (F) isn't directly part of your credit score.</li>
-                <li>Paying minimum only (G) suggests you're struggling with debt.</li>
-                <li>Defaulting intentionally (H) severely damages your credit score.</li>
-                <li>Ignoring credit (I) means missing opportunities to build a good history.</li>
-              </ul>
-            </div>
-          )}
+          <div className="question6-expanded-answer">
+            <h4>Why these answers are correct:</h4>
+            <ul>
+              <li><strong>A. Paying bills on time:</strong> Shows you're reliable — this is tracked by SIMAH.</li>
+              <li><strong>D. Checking SIMAH report:</strong> Helps you catch errors that might affect your score.</li>
+              <li><strong>E. Using credit responsibly:</strong> Using credit and repaying in full builds trust and keeps your utilisation ratio low.</li>
+            </ul>
+            <h4>Common misconceptions:</h4>
+            <ul>
+              <li>Using only cash (B) doesn't help build credit - you need to show you can handle credit responsibly.</li>
+              <li>Applying for many cards (C) can hurt your score - each application is recorded.</li>
+              <li>Savings account balance (F) isn't directly part of your credit score.</li>
+              <li>Paying minimum only (G) suggests you're struggling with debt.</li>
+              <li>Defaulting intentionally (H) severely damages your credit score.</li>
+              <li>Ignoring credit (I) means missing opportunities to build a good history.</li>
+            </ul>
+          </div>
 
           {/* Display each team's answer with comparison */}
+          <h4 className="question6-your-answers">Your answers</h4>
           <div className="question6-team-answer-comparison">
             {teams.map((team, index) => (
               <div key={team.name} className="question6-team-answer-box">
@@ -266,10 +248,21 @@ const Question6 = ({ teams, onAnswer, onNextQuestion, onAwardPoints }) => {
         </div>
       )}
 
+      {/* Hint Modal */}
+      {showHintModal && (
+        <div className="question6-hint-modal-overlay">
+          <div className="question6-hint-modal">
+            <h3>Hint</h3>
+            <p>Think about what shows financial responsibility. Good credit scores come from showing you can use credit wisely, not from avoiding it completely or using it recklessly.</p>
+            <button onClick={() => setShowHintModal(false)} className="question6-close-modal-button">Close</button>
+          </div>
+        </div>
+      )}
+
       {/* Hover Modal */}
       {hoverModal.show && (
         <div className="question6-hover-modal" style={{ top: hoverModal.y + 'px', left: hoverModal.x + 'px' }}>
-          <h3>{hoverModal.title}</h3>
+          <h4>{hoverModal.title}</h4>
           <p>{hoverModal.content}</p>
         </div>
       )}

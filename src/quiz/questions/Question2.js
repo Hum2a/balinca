@@ -211,35 +211,35 @@ const Question2 = ({ teams, onAnswer, onNextQuestion, onAwardPoints }) => {
           {/* Multiple Choice Options */}
           <div className="question2-choices-container">
             <button 
-              className={`question2-choice-button ${teamAnswers.includes('A') ? 'active' : ''}`}
+              className="question2-choice-button"
               onClick={() => handleTeamAnswerChange(0, 'A')}
               data-letter="A"
             >
               <span>The phone company increased prices randomly — next year it might go back down</span>
             </button>
             <button 
-              className={`question2-choice-button ${teamAnswers.includes('B') ? 'active' : ''}`}
+              className="question2-choice-button"
               onClick={() => handleTeamAnswerChange(0, 'B')}
               data-letter="B"
             >
               <span>She should have saved more — saving 1,000 SAR wasn't enough from the beginning</span>
             </button>
             <button 
-              className={`question2-choice-button ${teamAnswers.includes('C') ? 'active' : ''}`}
+              className="question2-choice-button"
               onClick={() => handleTeamAnswerChange(0, 'C')}
               data-letter="C"
             >
               <span>Prices went up because of inflation - her money lost value over time while just sitting there</span>
             </button>
             <button 
-              className={`question2-choice-button ${teamAnswers.includes('D') ? 'active' : ''}`}
+              className="question2-choice-button"
               onClick={() => handleTeamAnswerChange(0, 'D')}
               data-letter="D"
             >
               <span>Inflation doesn't affect savings — she just waited too long to buy</span>
             </button>
             <button 
-              className={`question2-choice-button ${teamAnswers.includes('E') ? 'active' : ''}`}
+              className="question2-choice-button"
               onClick={() => handleTeamAnswerChange(0, 'E')}
               data-letter="E"
             >

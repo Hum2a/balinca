@@ -57,7 +57,7 @@ const InvestmentCalculator = () => {
           legend: {
             display: true,
             labels: {
-              color: '#ffffff',
+              color: '#000000',
               font: {
                 size: 14,
                 weight: 'bold'
@@ -70,34 +70,34 @@ const InvestmentCalculator = () => {
             title: {
               display: true,
               text: 'Years',
-              color: '#ffffff',
+              color: '#000000',
               font: {
                 size: 14,
                 weight: 'bold'
               }
             },
             grid: {
-              color: 'rgba(255, 255, 255, 0.1)'
+              color: 'rgba(0, 0, 0, 0.1)'
             },
             ticks: {
-              color: '#ffffff'
+              color: '#000000'
             }
           },
           y: {
             title: {
               display: true,
               text: 'Value (£)',
-              color: '#ffffff',
+              color: '#000000',
               font: {
                 size: 14,
                 weight: 'bold'
               }
             },
             grid: {
-              color: 'rgba(255, 255, 255, 0.1)'
+              color: 'rgba(0, 0, 0, 0.1)'
             },
             ticks: {
-              color: '#ffffff'
+              color: '#000000'
             }
           }
         }
@@ -154,7 +154,7 @@ const InvestmentCalculator = () => {
             <label htmlFor="initialInvestment">Initial Investment (£):</label>
             <input
               type="number"
-              placeholder="0"
+              placeholder=""
               id="initialInvestment"
               value={initialInvestment}
               onChange={handleInputChange(setInitialInvestment)}
@@ -165,7 +165,7 @@ const InvestmentCalculator = () => {
             <label htmlFor="monthlyContribution">Monthly Contribution (£):</label>
             <input
               type="number"
-              placeholder="500"
+              placeholder=""
               id="monthlyContribution"
               value={monthlyContribution}
               onChange={handleInputChange(setMonthlyContribution)}
@@ -176,7 +176,7 @@ const InvestmentCalculator = () => {
             <label htmlFor="investmentPeriod">Investment Period (Years):</label>
             <input
               type="number"
-              placeholder="10"
+              placeholder=""
               id="investmentPeriod"
               value={investmentPeriod}
               onChange={handleInputChange(setInvestmentPeriod)}
@@ -187,7 +187,7 @@ const InvestmentCalculator = () => {
             <label htmlFor="rate">Interest Rate (%):</label>
             <input
               type="number"
-              placeholder="8"
+              placeholder=""
               id="rate"
               value={rate}
               onChange={handleInputChange(setRate)}

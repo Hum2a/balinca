@@ -7,10 +7,9 @@ const Question8 = ({ teams, onAnswer, onNextQuestion, onAwardPoints }) => {
   const [showResults, setShowResults] = useState(false);
   const [timer, setTimer] = useState(240);
   const [timerStarted, setTimerStarted] = useState(false);
-  const [showGlossary, setShowGlossary] = useState(false);
   const [showHintModal, setShowHintModal] = useState(false);
-  const [glossaryTitle, setGlossaryTitle] = useState('');
-  const [glossaryContent, setGlossaryContent] = useState('');
+  const [teamAnswers, setTeamAnswers] = useState(Array(teams.length).fill(''));
+  const [detailedAnswerShown, setDetailedAnswerShown] = useState(false);
   const [hoverModal, setHoverModal] = useState({
     show: false,
     title: "",
@@ -18,8 +17,6 @@ const Question8 = ({ teams, onAnswer, onNextQuestion, onAwardPoints }) => {
     x: 0,
     y: 0,
   });
-  const [teamAnswers, setTeamAnswers] = useState(Array(teams.length).fill(''));
-  const [detailedAnswerShown, setDetailedAnswerShown] = useState(false);
 
   const correctAnswer = 'B';
 
@@ -51,7 +48,7 @@ const Question8 = ({ teams, onAnswer, onNextQuestion, onAwardPoints }) => {
     }
   };
 
-  const showHoverModal = (title, content, event) => {
+  const showModal = (title, content, event) => {
     if (!event) return;
     setHoverModal({
       show: true,
@@ -62,7 +59,7 @@ const Question8 = ({ teams, onAnswer, onNextQuestion, onAwardPoints }) => {
     });
   };
 
-  const hideHoverModal = () => {
+  const hideModal = () => {
     setHoverModal(prev => ({ ...prev, show: false }));
   };
 
@@ -74,11 +71,11 @@ const Question8 = ({ teams, onAnswer, onNextQuestion, onAwardPoints }) => {
 
   const submitAnswers = () => {
     setShowResults(true);
+    const pointsArray = teamAnswers.map(answer => (answer === correctAnswer ? 2 : 0));
+    onAwardPoints(pointsArray);
   };
 
   const nextQuestion = () => {
-    const pointsArray = teamAnswers.map(answer => (answer === correctAnswer ? 2 : 0));
-    onAwardPoints(pointsArray);
     onNextQuestion();
   };
 
@@ -88,12 +85,12 @@ const Question8 = ({ teams, onAnswer, onNextQuestion, onAwardPoints }) => {
 
   return (
     <div className="question8-container">
-      {/* Header and Progress Bar */}
+      {/* Progress Bar Container */}
       <div className="question8-progress-bar-container">
         <div className="question8-progress-bar">
           <div className="question8-progress" style={{ width: `${progressBarWidth}%` }}></div>
         </div>
-
+        
         <div className="question8-timer-container">
           {!timerStarted ? (
             <button onClick={startTimer} className="question8-start-timer-button">
@@ -107,9 +104,9 @@ const Question8 = ({ teams, onAnswer, onNextQuestion, onAwardPoints }) => {
         </div>
       </div>
 
-      {/* Task Description */}
+      {/* Task Header */}
       <div className="question8-task-header">
-        <div className="question8-top-layer">
+        <div className="question8-header-content">
           <div className="question8-points-section">
             <h3>Challenge 8</h3>
             <img src={lightningBolt} alt="Lightning Bolt" className="question8-lightning-bolt" />
@@ -119,23 +116,14 @@ const Question8 = ({ teams, onAnswer, onNextQuestion, onAwardPoints }) => {
             <button className="question8-hint-button" onClick={() => setShowHintModal(true)}>Hint?</button>
           </div>
         </div>
-        <div className="question8-task-header-question">
-          <p>After weeks of working hard on freelance design projects, Omar has saved up 3,500 SAR. He wants to reinvest in his work by buying a new tablet to help him design faster and more professionally.</p>
-          <p>He visits a tech store in Dubai while on a short trip and is offered five ways to pay:</p>
-          <img src={moneyBars} alt="Task 8 Image" className="question8-task-image" />
-        </div>
+        <img src={moneyBars} alt="Task 8 Image" className="question8-task-image" />
+        <p>
+          After weeks of working hard on freelance design projects, Omar has saved up 3,500 SAR. He wants to reinvest in his work by buying a new tablet to help him design faster and more professionally.
+        </p>
+        <p>
+          He visits a tech store in Dubai while on a short trip and is offered five ways to pay:
+        </p>
       </div>
-
-      {/* Hint Modal */}
-      {showHintModal && (
-        <div className="question8-hint-modal-overlay">
-          <div className="question8-hint-modal">
-            <h3>Hint</h3>
-            <p>Consider Omar's needs: he wants to walk out with the tablet today and needs a clear record of the purchase for business purposes. Think about which payment method best balances immediate access with proper documentation.</p>
-            <button onClick={() => setShowHintModal(false)} className="question8-close-modal-button">Close</button>
-          </div>
-        </div>
-      )}
 
       {!showResults ? (
         <div>
@@ -212,6 +200,7 @@ const Question8 = ({ teams, onAnswer, onNextQuestion, onAwardPoints }) => {
           )}
 
           {/* Display each team's answer with comparison */}
+          <h4 className="question8-your-answers">Your answers</h4>
           <div className="question8-team-answer-comparison">
             {teams.map((team, index) => (
               <div key={team.name} className="question8-team-answer-box">
@@ -227,10 +216,21 @@ const Question8 = ({ teams, onAnswer, onNextQuestion, onAwardPoints }) => {
         </div>
       )}
 
+      {/* Hint Modal */}
+      {showHintModal && (
+        <div className="question8-hint-modal-overlay">
+          <div className="question8-hint-modal">
+            <h3>Hint</h3>
+            <p>Consider which payment method best balances immediate access with proper documentation for business expenses. Think about security, convenience, and the importance of having a clear record for your freelance work.</p>
+            <button onClick={() => setShowHintModal(false)} className="question8-close-modal-button">Close</button>
+          </div>
+        </div>
+      )}
+
       {/* Hover Modal */}
       {hoverModal.show && (
         <div className="question8-hover-modal" style={{ top: hoverModal.y + 'px', left: hoverModal.x + 'px' }}>
-          <h3>{hoverModal.title}</h3>
+          <h4>{hoverModal.title}</h4>
           <p>{hoverModal.content}</p>
         </div>
       )}

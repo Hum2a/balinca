@@ -355,10 +355,10 @@
 }
 
 .question2-choice-button:hover {
-  background-color: #f8fafc;
-  border-color: #2196F3;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  background-color: #ffffff;
+  border-color: #e5e7eb;
+  transform: none;
+  box-shadow: none;
 }
 
 .question2-choice-button::before {
@@ -387,12 +387,6 @@
   .question2-choices-container {
     grid-template-columns: 1fr;
   }
-}
-
-/* Active state for selected answer */
-.question2-choice-button.active {
-  background-color: #e3f2fd;
-  border-color: #2196F3;
 }
 
 /* Team Answer Section */

@@ -131,16 +131,16 @@ const SimSetup = () => {
   }, [uid, location.state]);
 
   const getTotalSpendableAmount = (points) => {
-    return 100000 + (points * 5000);
+    return 100000 + (points * 100);
   };
 
   const getRemainingSpendableAmount = (group) => {
     const totalSpendable = getTotalSpendableAmount(group.points);
-    const totalAllocated = Object.values(group.assets).reduce(
+    const totalAllocated = Object.values(group.percentages).reduce(
       (sum, value) => sum + parseFloat(value || 0),
       0
     );
-    return totalSpendable - totalAllocated;
+    return 100 - totalAllocated;
   };
 
   const updateSpendableAmount = (index) => {
@@ -170,7 +170,11 @@ const SimSetup = () => {
       
       // Validate percentage is between 0 and 100
       if (newPercentage < 0 || newPercentage > 100) {
-        alert('Percentage must be between 0 and 100');
+        const inputElement = document.getElementById(`${key}-${index}`);
+        inputElement.classList.add('GroupCreation-shake');
+        setTimeout(() => {
+          inputElement.classList.remove('GroupCreation-shake');
+        }, 600);
         return prevGroups;
       }
       
@@ -184,9 +188,13 @@ const SimSetup = () => {
       );
       const newTotalPercentage = currentTotalPercentage - (parseFloat(group.percentages[key]) || 0) + newPercentage;
       
-      // If total percentage would exceed 100%, don't update
+      // If total percentage would exceed 100%, don't update and shake the input
       if (newTotalPercentage > 100) {
-        alert('Total allocation cannot exceed 100%');
+        const inputElement = document.getElementById(`${key}-${index}`);
+        inputElement.classList.add('GroupCreation-shake');
+        setTimeout(() => {
+          inputElement.classList.remove('GroupCreation-shake');
+        }, 600);
         return prevGroups;
       }
       
@@ -442,14 +450,14 @@ const SimSetup = () => {
                             step="1"
                           />
                           <span className="GroupCreation-amount-display">
-                            (£{(value || 0).toLocaleString()})
+                            ({(value || 0).toLocaleString()}) SAR
                           </span>
                         </div>
                       ))}
                       <div className="GroupCreation-total-value">
-                        Total Spendable: £{getTotalSpendableAmount(group.points).toLocaleString()}
+                        Total Spendable: {getTotalSpendableAmount(group.points).toLocaleString()} SAR
                         <br />
-                        Remaining: £{getRemainingSpendableAmount(group).toLocaleString()}
+                        Remaining: {getRemainingSpendableAmount(group).toFixed(1)}%
                       </div>
                     </div>
                   </div>

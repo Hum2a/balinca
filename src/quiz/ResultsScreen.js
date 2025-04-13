@@ -82,9 +82,9 @@ const ResultsScreen = ({ teams, quizComplete, onNextQuestion }) => {
       <div className="quiz-results-header-container">
         <button onClick={goHome} className="quiz-results-home-button">Go to Home</button>
         <h2 className="quiz-results-title">Scoreboard</h2>
-        <button onClick={() => navigate('/sim-setup')} className="quiz-results-simulation-button">
+        {/* <button onClick={() => navigate('/sim-setup')} className="quiz-results-simulation-button">
           Go to Simulation
-        </button>
+        </button> */}
       </div>
 
       <div className="quiz-results-content-wrapper">

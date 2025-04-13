@@ -8,10 +8,7 @@ const Question5 = ({ teams, onAnswer, onNextQuestion, onAwardPoints }) => {
   const [showResults, setShowResults] = useState(false);
   const [timer, setTimer] = useState(240);
   const [timerStarted, setTimerStarted] = useState(false);
-  const [showGlossary, setShowGlossary] = useState(false);
   const [showHintModal, setShowHintModal] = useState(false);
-  const [glossaryTitle, setGlossaryTitle] = useState('');
-  const [glossaryContent, setGlossaryContent] = useState('');
   const [hoverModal, setHoverModal] = useState({
     show: false,
     title: "",
@@ -44,18 +41,18 @@ const Question5 = ({ teams, onAnswer, onNextQuestion, onAwardPoints }) => {
     }
   };
 
-  const showHoverModal = (title, content, event) => {
+  const showModal = (term, event) => {
     if (!event) return;
     setHoverModal({
       show: true,
-      title,
-      content,
+      title: term,
+      content: term === 'TASI' ? 'The Tadawul All Share Index (TASI) is the main stock market index in Saudi Arabia. It represents the overall performance of the Saudi stock market and includes many of the country\'s biggest companies.' : '',
       x: event.clientX + 15,
       y: event.clientY + 15
     });
   };
 
-  const hideHoverModal = () => {
+  const hideModal = () => {
     setHoverModal(prev => ({ ...prev, show: false }));
   };
 
@@ -67,26 +64,22 @@ const Question5 = ({ teams, onAnswer, onNextQuestion, onAwardPoints }) => {
 
   const submitAnswers = () => {
     setShowResults(true);
+    const pointsArray = teamAnswers.map(answer => (answer === correctAnswer ? 3 : 0));
+    onAwardPoints(pointsArray);
   };
 
   const nextQuestion = () => {
-    const pointsArray = teamAnswers.map(answer => (answer === correctAnswer ? 3 : 0));
-    onAwardPoints(pointsArray);
     onNextQuestion();
-  };
-
-  const toggleDetailedAnswer = () => {
-    setDetailedAnswerShown(!detailedAnswerShown);
   };
 
   return (
     <div className="question5-container">
-      {/* Header and Progress Bar */}
+      {/* Progress Bar Container */}
       <div className="question5-progress-bar-container">
         <div className="question5-progress-bar">
           <div className="question5-progress" style={{ width: `${progressBarWidth}%` }}></div>
         </div>
-
+        
         <div className="question5-timer-container">
           {!timerStarted ? (
             <button onClick={startTimer} className="question5-start-timer-button">
@@ -100,9 +93,9 @@ const Question5 = ({ teams, onAnswer, onNextQuestion, onAwardPoints }) => {
         </div>
       </div>
 
-      {/* Task Description */}
+      {/* Task Header */}
       <div className="question5-task-header">
-        <div className="question5-top-layer">
+        <div className="question5-header-content">
           <div className="question5-points-section">
             <h3>Challenge 5</h3>
             <img src={lightningBolt} alt="Lightning Bolt" className="question5-lightning-bolt" />
@@ -112,35 +105,64 @@ const Question5 = ({ teams, onAnswer, onNextQuestion, onAwardPoints }) => {
             <button className="question5-hint-button" onClick={() => setShowHintModal(true)}>Hint?</button>
           </div>
         </div>
-        <div className="question5-task-header-question">
-          <p>Noura has been saving consistently from her tutoring work and decides to start investing 500 SAR each month. She chooses to invest in a low-cost index fund that tracks the 
-            <span 
-              className="question5-clickable-term"
-              onMouseEnter={(e) => showHoverModal('TASI', 'The Tadawul All Share Index (TASI) is the main stock market index in Saudi Arabia. It represents the overall performance of the Saudi stock market and includes many of the country\'s biggest companies.', e)}
-              onMouseLeave={hideHoverModal}
-            > Tadawul All Share Index (TASI)</span>.
-          </p>
-          <p>TASI represents the overall performance of the Saudi stock market and includes many of the country's biggest companies. Over the long term, TASI has delivered average annual returns of around 7%, though it can go up or down in any given year.</p>
-          <img src={moneyBars} alt="Task 5 Image" className="question5-task-image" />
-        </div>
+        <img src={moneyBars} alt="Task 5 Image" className="question5-task-image" />
+        <p>
+          Noura has been saving consistently from her tutoring work and decides to invest 500 SAR each month. She chooses to invest in a low-cost index fund that tracks the 
+          <span
+            className="question5-clickable-term"
+            onMouseOver={(e) => showModal('TASI', e)}
+            onMouseLeave={hideModal}
+          > Tadawul All Share Index (TASI)</span>.
+        </p>
+        <p>TASI represents the overall performance of the Saudi stock market and includes many of the country's biggest companies. Over the long term, TASI has delivered average annual returns of around 7%, though it can go up or down in any given year.</p>
       </div>
 
-      {/* Hint Modal */}
-      {showHintModal && (
-        <div className="question5-hint-modal-overlay">
-          <div className="question5-hint-modal">
-            <h3>Hint</h3>
-            <p>Think about compound interest - your returns each year are reinvested and can earn additional returns. Also consider that you're adding 500 SAR every month for 10 years (that's 60,000 SAR in total contributions).</p>
-            <button onClick={() => setShowHintModal(false)} className="question5-close-modal-button">Close</button>
+      {/* Investment Details Section */}
+      <div className="question5-investment-wrapper">
+        <div className="question5-investment-details">
+          <div className="question5-card">
+            <h4>Investment Plan</h4>
+            <ul>
+              <li>
+                <span className="question5-investment-icon">💰</span>
+                <span className="question5-investment-label">Monthly Investment</span>
+                <span className="question5-investment-value">SAR 500</span>
+              </li>
+              <li>
+                <span className="question5-investment-icon">📈</span>
+                <span className="question5-investment-label">Expected Return</span>
+                <span className="question5-investment-value">7% annually</span>
+              </li>
+              <li>
+                <span className="question5-investment-icon">⏳</span>
+                <span className="question5-investment-label">Time Period</span>
+                <span className="question5-investment-value">10 years</span>
+              </li>
+            </ul>
+          </div>
+          <div className="question5-card">
+            <h4>Investment Benefits</h4>
+            <ul>
+              <li>
+                <span className="question5-investment-icon">🎯</span>
+                <span className="question5-investment-label">Diversification</span>
+                <span className="question5-investment-value">Multiple companies</span>
+              </li>
+              <li>
+                <span className="question5-investment-icon">📊</span>
+                <span className="question5-investment-label">Market Growth</span>
+                <span className="question5-investment-value">Long-term potential</span>
+              </li>
+            </ul>
           </div>
         </div>
-      )}
+      </div>
 
       {!showResults ? (
         <div>
           {/* Question Section */}
           <div className="question5-question-section">
-            <p className="question5-question-text">If Noura invests SAR 500 a month, and gets an annual return of 7% every year, approximately how much money will she have in the account after 10 years?</p>
+            <p className="question5-question">If Noura invests SAR 500 a month, and gets an annual return of 7% every year, approximately how much money will she have in the account after 10 years?</p>
           </div>
 
           {/* Multiple Choice Options */}
@@ -181,58 +203,36 @@ const Question5 = ({ teams, onAnswer, onNextQuestion, onAwardPoints }) => {
       ) : (
         <div className="question5-result-section">
           <h4>Correct Answer:</h4>
-          <p className="question5-correct-answer">D. SAR 85,000</p>
-          <p onClick={toggleDetailedAnswer} className="question5-toggle-detailed-answer">
-            Click to {detailedAnswerShown ? 'hide detailed explanation ⬆️' : 'see detailed explanation ⬇️'}
-          </p>
+          <p className="question5-correct-answer">SAR 85,000</p>
+          <p className="question5-correct-answer-description">Total investment value after 10 years</p>
+          <p className="question5-correct-answer-description"><strong>Monthly Investment × Time × (1 + Return Rate)</strong></p>
+          <p className="question5-correct-answer-description">SAR 500 × 120 months with 7% annual compound growth</p>
 
-          {detailedAnswerShown && (
-            <div className="question5-expanded-answer">
-              <div className="question5-calculation">
-                <h4>How the money grows:</h4>
-                <div className="question5-investment-details">
-                  <div className="question5-detail-card">
-                    <span className="question5-detail-label">Monthly Investment</span>
-                    <span className="question5-detail-value">500 SAR</span>
-                  </div>
-                  <div className="question5-detail-card">
-                    <span className="question5-detail-label">Investment Period</span>
-                    <span className="question5-detail-value">10 years</span>
-                  </div>
-                  <div className="question5-detail-card">
-                    <span className="question5-detail-label">Total Contributions</span>
-                    <span className="question5-detail-value">60,000 SAR</span>
-                  </div>
-                  <div className="question5-detail-card">
-                    <span className="question5-detail-label">Annual Return</span>
-                    <span className="question5-detail-value">7%</span>
-                  </div>
-                  <div className="question5-detail-card highlight">
-                    <span className="question5-detail-label">Final Amount</span>
-                    <span className="question5-detail-value">85,000 SAR</span>
-                  </div>
+          <div className="question5-expanded-answer">
+            <div className="question5-calculation">
+              <h4>How the money grows:</h4>
+              <div className="question5-detail-cards">
+                <div className="question5-detail-card">
+                  <span className="question5-detail-label">Total Contributions</span>
+                  <span className="question5-detail-value">60,000 SAR</span>
                 </div>
-
-                <div className="question5-explanation">
-                  <h4>The Power of Compound Growth</h4>
-                  <ul className="question5-benefits-list">
-                    <li>Regular investing creates a strong foundation for wealth building</li>
-                    <li>Long-term perspective allows your money to grow exponentially</li>
-                    <li>Compound returns mean your returns earn their own returns</li>
-                    <li>Index fund investing provides broad market exposure</li>
-                  </ul>
+                <div className="question5-detail-card">
+                  <span className="question5-detail-label">Investment Growth</span>
+                  <span className="question5-detail-value">25,000 SAR</span>
                 </div>
-
-                <div className="question5-calculator-section">
-                  <h4>Try it yourself!</h4>
-                  <p>Use this calculator to explore different investment scenarios:</p>
-                  <InvestmentCalculator />
+                <div className="question5-detail-card highlight">
+                  <span className="question5-detail-label">Final Amount</span>
+                  <span className="question5-detail-value">85,000 SAR</span>
                 </div>
               </div>
             </div>
-          )}
+            <div className="question5-calculator-section">
+              <h4>Try the Investment Calculator</h4>
+              <InvestmentCalculator />
+            </div>
+          </div>
 
-          {/* Display each team's answer with comparison */}
+          <h4 className="question5-your-answers">Your answers</h4>
           <div className="question5-team-answer-comparison">
             {teams.map((team, index) => (
               <div key={team.name} className="question5-team-answer-box">
@@ -248,10 +248,21 @@ const Question5 = ({ teams, onAnswer, onNextQuestion, onAwardPoints }) => {
         </div>
       )}
 
+      {/* Hint Modal */}
+      {showHintModal && (
+        <div className="question5-hint-modal-overlay">
+          <div className="question5-hint-modal">
+            <h3>Hint</h3>
+            <p>Think about compound interest - your returns each year are reinvested and can earn additional returns. Also consider that you're adding 500 SAR every month for 10 years (that's 60,000 SAR in total contributions).</p>
+            <button onClick={() => setShowHintModal(false)} className="question5-close-modal-button">Close</button>
+          </div>
+        </div>
+      )}
+
       {/* Hover Modal */}
       {hoverModal.show && (
         <div className="question5-hover-modal" style={{ top: hoverModal.y + 'px', left: hoverModal.x + 'px' }}>
-          <h3>{hoverModal.title}</h3>
+          <h4>{hoverModal.title}</h4>
           <p>{hoverModal.content}</p>
         </div>
       )}

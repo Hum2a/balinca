@@ -530,7 +530,7 @@ const Simulation = () => {
       <div className="simulationpage-sim-chart-container">
         <canvas id="portfolioChart" ref={chartRef}></canvas>
         
-        <div className="team-icons-container">
+        {/* <div className="team-icons-container">
           {groups.map((group) => (
             <div 
               key={group.id} 
@@ -539,7 +539,7 @@ const Simulation = () => {
               <span className="team-name">{group.name}</span>
             </div>
           ))}
-        </div>
+        </div> */}
 
         <button 
           onClick={nextQuarter} 

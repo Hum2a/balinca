@@ -2,10 +2,9 @@
   position: relative;
   text-align: center;
   padding: 120px 40px 40px;
-  background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
-  background-size: 400% 400%;
-  animation: gradientBG 15s ease infinite;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  background: url('../assets/classroom.jpg') center center;
+  background-size: cover;
+  background-attachment: fixed;
   width: 100%;
   height: 100vh;
   min-height: 600px;
@@ -95,29 +94,29 @@
   margin-bottom: 10px;
   display: flex;
   flex-direction: column;
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.9);
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
   padding: 25px;
   border-radius: 15px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
   overflow: hidden;
   cursor: pointer;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.3);
   animation: slideIn 0.5s ease-out;
 }
 
 .quiz-results-team-bar-container:hover {
   transform: translateY(-5px) scale(1.02);
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
-  background: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+  background: rgba(255, 255, 255, 0.95);
 }
 
 .quiz-results-team-bar-container.expanded {
   height: auto;
   min-height: 320px;
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.95);
   padding-bottom: 30px;
 }
 
@@ -132,8 +131,8 @@
 .quiz-results-team-name {
   font-size: 1.5rem;
   font-weight: 600;
-  color: white;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  color: #1a2a6c;
+  text-shadow: none;
   flex: 1;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -169,8 +168,8 @@
 .quiz-results-points {
   font-size: 1.6rem;
   font-weight: bold;
-  color: white;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  color: #1a2a6c;
+  text-shadow: none;
 }
 
 .quiz-results-team-points-breakdown {
@@ -178,7 +177,7 @@
   width: calc(100% - 40px);
   animation: fadeIn 0.3s ease-out;
   padding: 20px;
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(255, 255, 255, 0.95);
   border-radius: 10px;
   margin-left: auto;
   margin-right: auto;
@@ -188,7 +187,7 @@ table {
   width: 100%;
   border-collapse: separate;
   border-spacing: 0;
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.95);
   border-radius: 10px;
   overflow: hidden;
   margin-top: 10px;
@@ -197,13 +196,13 @@ table {
 th, td {
   padding: 15px 20px;
   text-align: left;
-  color: white;
+  color: #1a2a6c;
   font-size: 1.2rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 th {
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(0, 0, 0, 0.05);
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 1px;
@@ -219,7 +218,7 @@ tbody tr {
 }
 
 tbody tr:hover {
-  background: rgba(255, 255, 255, 0.15);
+  background: rgba(0, 0, 0, 0.02);
 }
 
 .quiz-results-home-button:hover, .quiz-results-simulation-button:hover {
@@ -320,9 +319,7 @@ tbody tr:hover {
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(255, 255, 255, 0.1);
-  -webkit-backdrop-filter: blur(10px);
-  backdrop-filter: blur(10px);
+  background: rgba(0, 0, 0, 0.6);
   z-index: 1;
 }
 
