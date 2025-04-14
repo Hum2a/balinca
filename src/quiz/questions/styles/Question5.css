@@ -275,27 +275,94 @@
 .question5-result-section {
   text-align: center;
   margin-top: 20px;
+  padding: 20px;
 }
 
 .question5-result-section h4 {
-  color: #000000;
+  font-size: 1.2rem;
+  color: #2c3e50;
+  margin-bottom: 15px;
 }
 
-.question5-correct-answer {
-  display: inline-block;
+.question5-answer-value {
+  display: block;
   font-size: 1.8rem;
   font-weight: bold;
-  color: #000;
-  margin: 20px;
-  background-color: #B3E3D3;
+  color: #fff;
+  margin: 0 auto 30px;
+  background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
   border-radius: 50px;
-  width: 25%;
-  padding: 15px;
+  padding: 15px 30px;
   text-align: center;
+  box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+  max-width: fit-content;
+}
+
+.question5-toggle-detailed-answer {
+  display: block;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border: none;
+  border-radius: 30px;
+  padding: 12px 25px;
+  margin: 0 auto;
+  align-items: center;
+  gap: 8px;
+  font-size: 1.1rem;
+  color: #003F91;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.question5-toggle-detailed-answer:hover {
+  background: linear-gradient(135deg, #e9ecef 0%, #dee2e6 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.question5-toggle-detailed-answer:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.question5-toggle-detailed-answer[data-expanded="true"]::before {
+  content: '▼';
+  transform: rotate(180deg);
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+
+.question5-toggle-detailed-answer[data-expanded="false"]::before {
+  content: '▼';
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+
+.question5-expanded-answer {
+  background: white;
+  border-radius: 15px;
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: all 0.5s ease-in-out;
+  margin: 0 auto;
+  max-width: 800px;
+}
+
+.question5-expanded-answer.show {
+  max-height: 2000px;
+  opacity: 1;
+  padding: 25px;
+  margin: 20px auto;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .question5-correct-answer-description {
-  color: #000000;
+  color: #2c3e50;
+  font-size: 1.1rem;
+  margin: 10px 0;
 }
 
 .question5-your-answers {
@@ -437,10 +504,6 @@
 }
 
 /* Expanded Answer Section */
-.question5-expanded-answer {
-  margin: 20px auto;
-}
-
 .question5-calculation {
   background-color: #ECECEC;
   padding: 20px;

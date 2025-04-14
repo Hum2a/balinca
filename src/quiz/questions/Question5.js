@@ -203,12 +203,22 @@ const Question5 = ({ teams, onAnswer, onNextQuestion, onAwardPoints }) => {
       ) : (
         <div className="question5-result-section">
           <h4>Correct Answer:</h4>
-          <p className="question5-correct-answer">SAR 85,000</p>
-          <p className="question5-correct-answer-description">Total investment value after 10 years</p>
-          <p className="question5-correct-answer-description"><strong>Monthly Investment × Time × (1 + Return Rate)</strong></p>
-          <p className="question5-correct-answer-description">SAR 500 × 120 months with 7% annual compound growth</p>
+          <div className="question5-answer-value">
+            SAR 85,000
+          </div>
+          
+          <button 
+            onClick={() => setDetailedAnswerShown(!detailedAnswerShown)} 
+            className="question5-toggle-detailed-answer"
+            data-expanded={detailedAnswerShown}
+          >
+            {detailedAnswerShown ? 'Hide detailed explanation' : 'Show detailed explanation'}
+          </button>
 
-          <div className="question5-expanded-answer">
+          <div className={`question5-expanded-answer ${detailedAnswerShown ? 'show' : ''}`}>
+            <p className="question5-correct-answer-description"><strong>Monthly Investment × Time × (1 + Return Rate)</strong></p>
+            <p className="question5-correct-answer-description">SAR 500 × 120 months with 7% annual compound growth</p>
+
             <div className="question5-calculation">
               <h4>How the money grows:</h4>
               <div className="question5-detail-cards">

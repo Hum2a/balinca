@@ -207,29 +207,45 @@ const Question4 = ({ teams, onAnswer, onNextQuestion, onAwardPoints }) => {
       ) : (
         <div className="question4-result-section">
           <h4>Correct Answer:</h4>
-          <p className="question4-correct-answer">C. She saved 400 SAR - She should set money aside for emergencies</p>
+          <div className="question4-answer-value">
+            C. She saved 400 SAR - She should set money aside for emergencies
+          </div>
           
-          <p onClick={toggleDetailedAnswer} className="question4-toggle-detailed-answer">
-            {detailedAnswerShown ? '⬆️ Hide explanation' : '⬇️ Show explanation'}
-          </p>
+          <button 
+            onClick={toggleDetailedAnswer} 
+            className="question4-toggle-detailed-answer"
+            data-expanded={detailedAnswerShown}
+          >
+            {detailedAnswerShown ? 'Hide explanation' : 'Show explanation'}
+          </button>
 
-          {detailedAnswerShown && (
-            <div className="question4-expanded-answer">
-              <div className="question4-calculation">
-                <table className="question4-budget-table">
-                  <tbody>
-                    <tr><td>Monthly Income:</td><td>5,000 SAR</td></tr>
-                    <tr><td>Rent:</td><td>-1,200 SAR</td></tr>
-                    <tr><td>Transport & food:</td><td>-1,600 SAR</td></tr>
-                    <tr><td>Entertainment:</td><td>-1,000 SAR</td></tr>
-                    <tr><td>Car repair:</td><td>-800 SAR</td></tr>
-                    <tr className="question4-total-row"><td>Saved:</td><td>400 SAR</td></tr>
-                  </tbody>
-                </table>
+          <div className={`question4-expanded-answer ${detailedAnswerShown ? 'show' : ''}`}>
+            <div className="question4-calculation">
+              <h4>Monthly Budget Breakdown</h4>
+              <table className="question4-budget-table">
+                <tbody>
+                  <tr><td>Monthly Income:</td><td>5,000 SAR</td></tr>
+                  <tr><td>Rent:</td><td>-1,200 SAR</td></tr>
+                  <tr><td>Transport & food:</td><td>-1,600 SAR</td></tr>
+                  <tr><td>Entertainment:</td><td>-1,000 SAR</td></tr>
+                  <tr><td>Car repair:</td><td>-800 SAR</td></tr>
+                  <tr className="question4-total-row"><td>Saved:</td><td>400 SAR</td></tr>
+                </tbody>
+              </table>
+
+              <div className="question4-explanation">
+                <h4>Key Takeaways:</h4>
+                <ul>
+                  <li>Regular monthly expenses total 3,800 SAR (76% of income)</li>
+                  <li>Unexpected car repair cost 800 SAR (16% of income)</li>
+                  <li>Only 400 SAR saved (8% of income)</li>
+                  <li>Building an emergency fund would help handle unexpected expenses better</li>
+                </ul>
               </div>
             </div>
-          )}
+          </div>
 
+          <h4 className="question4-your-answers">Your answers</h4>
           <div className="question4-team-answer-comparison">
             {teams.map((team, index) => (
               <div key={team.name} className="question4-team-answer-box">

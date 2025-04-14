@@ -170,36 +170,40 @@ const Question8 = ({ teams, onAnswer, onNextQuestion, onAwardPoints }) => {
       ) : (
         <div className="question8-result-section">
           <h4>Correct Answer:</h4>
-          <p className="question8-correct-answer">B. Debit Card (Mada/Visa)</p>
-          <p onClick={toggleDetailedAnswer} className="question8-toggle-detailed-answer">
-            Click to {detailedAnswerShown ? 'hide explanation ⬆️' : 'see explanation ⬇️'}
-          </p>
+          <div className="question8-answer-value">
+            B. Debit Card (Mada/Visa)
+          </div>
+          
+          <button 
+            onClick={toggleDetailedAnswer} 
+            className="question8-toggle-detailed-answer"
+            data-expanded={detailedAnswerShown}
+          >
+            {detailedAnswerShown ? 'Hide detailed explanation' : 'Show detailed explanation'}
+          </button>
 
-          {detailedAnswerShown && (
-            <div className="question8-expanded-answer">
-              <h4>Why this is the best choice:</h4>
-              <div className="question8-explanation">
-                <p>The debit card is the smartest choice because:</p>
-                <ul>
-                  <li>Provides an instant transaction</li>
-                  <li>Creates a clear digital record for business expenses</li>
-                  <li>Offers security and fraud protection</li>
-                  <li>Links directly to his bank account</li>
-                  <li>Provides an official paper trail for clients</li>
-                </ul>
+          <div className={`question8-expanded-answer ${detailedAnswerShown ? 'show' : ''}`}>
+            <h4>Why this is the best choice:</h4>
+            <div className="question8-explanation">
+              <p>The debit card is the smartest choice because:</p>
+              <ul>
+                <li>Provides an instant transaction</li>
+                <li>Creates a clear digital record for business expenses</li>
+                <li>Offers security and fraud protection</li>
+                <li>Links directly to his bank account</li>
+                <li>Provides an official paper trail for clients</li>
+              </ul>
 
-                <h4>Why other options are less ideal:</h4>
-                <ul>
-                  <li><strong>Cash (A):</strong> While it offers a discount, it provides no proof of purchase for business records</li>
-                  <li><strong>Mobile Wallet (C):</strong> Similar to cards but may not provide as official a record for business purposes</li>
-                  <li><strong>Bank Transfer (D):</strong> Would delay getting the tablet, which isn't ideal for a working freelancer</li>
-                  <li><strong>Cheque (E):</strong> Takes days to clear, delaying access to the tablet</li>
-                </ul>
-              </div>
+              <h4>Why other options are less ideal:</h4>
+              <ul>
+                <li><strong>Cash (A):</strong> While it offers a discount, it provides no proof of purchase for business records</li>
+                <li><strong>Mobile Wallet (C):</strong> Similar to cards but may not provide as official a record for business purposes</li>
+                <li><strong>Bank Transfer (D):</strong> Would delay getting the tablet, which isn't ideal for a working freelancer</li>
+                <li><strong>Cheque (E):</strong> Takes days to clear, delaying access to the tablet</li>
+              </ul>
             </div>
-          )}
+          </div>
 
-          {/* Display each team's answer with comparison */}
           <h4 className="question8-your-answers">Your answers</h4>
           <div className="question8-team-answer-comparison">
             {teams.map((team, index) => (

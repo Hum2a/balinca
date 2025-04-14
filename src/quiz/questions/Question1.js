@@ -202,13 +202,30 @@ const Question1 = ({ teams, onAnswer, onNextQuestion, onAwardPoints }) => {
       {/* Results Section */}
       {showResults ? (
         <div className="question1-result-section">
-          <h4>Correct Answer:</h4>
-          <p className="question1-correct-answer">SAR 840,000</p>
-          <p className="question1-correct-answer-description">Net Worth is</p>
-          <p className="question1-correct-answer-description"><strong>Total Assets – Total Liabilities</strong></p>
-          <p className="question1-correct-answer-description">SAR 875,000 - SAR 35,000</p>
-          <h4 className="question1-your-answers">Your answers</h4>
+          <div className="question1-explanation-card">
+            <h4>Correct Answer:</h4>
+            <div className="question1-answer-value">SAR 840,000</div>
+            <div className="question1-explanation-content">
+              <p className="question1-explanation-title">Net Worth is</p>
+              <p className="question1-explanation-formula">Total Assets – Total Liabilities</p>
+              <div className="question1-explanation-calculation">
+                <div className="question1-calc-row">
+                  <span>Total Assets:</span>
+                  <span>SAR 875,000</span>
+                </div>
+                <div className="question1-calc-row">
+                  <span>Total Liabilities:</span>
+                  <span>SAR 35,000</span>
+                </div>
+                <div className="question1-calc-row question1-calc-result">
+                  <span>Net Worth:</span>
+                  <span>SAR 840,000</span>
+                </div>
+              </div>
+            </div>
+          </div>
 
+          <h4 className="question1-your-answers">Your answers</h4>
           <div className="question1-team-answer-comparison">
             {teams.map((team, index) => (
               <div key={team.name} className="question1-team-answer-box">

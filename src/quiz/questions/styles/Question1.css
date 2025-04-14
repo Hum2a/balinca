@@ -413,63 +413,110 @@
 .question1-result-section {
   text-align: center;
   margin-top: 20px;
+  background: #f8f9fa;
+  border-radius: 15px;
+  padding: 25px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .question1-result-section h4 {
-  color: #000000;
+  color: #003F91;
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+  font-weight: 600;
 }
 
 .question1-correct-answer {
   display: inline-block;
   font-size: 1.8rem;
   font-weight: bold;
-  color: #000;
+  color: #fff;
   margin: 20px;
-  background-color: #B3E3D3;
+  background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
   border-radius: 50px;
   width: 25%;
   padding: 15px;
   text-align: center;
+  box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
 }
 
 .question1-correct-answer-description {
-  color: #000000;
+  color: #2c3e50;
+  font-size: 1.2rem;
+  line-height: 1.6;
+  margin: 15px 0;
+  padding: 15px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.question1-correct-answer-description strong {
+  color: #003F91;
+  font-weight: 600;
 }
 
 .question1-your-answers {
-  color: #000;
-  font-weight: bold;
-  margin-top: 50px;
+  color: #003F91;
+  font-weight: 600;
+  margin-top: 40px;
+  font-size: 1.4rem;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #e0e0e0;
+  display: inline-block;
 }
 
 .question1-team-answer-comparison {
   display: flex;
   justify-content: center;
-  gap: 20px;
-  margin-top: 20px;
+  gap: 30px;
+  margin-top: 30px;
+  flex-wrap: wrap;
+}
+
+.question1-team-answer-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: white;
+  padding: 15px 25px;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease;
+}
+
+.question1-team-answer-box:hover {
+  transform: translateY(-5px);
+}
+
+.question1-team-answer-box p {
+  margin-bottom: 10px;
+  font-weight: 600;
+  color: #2c3e50;
 }
 
 .question1-team-answer-box div {
-  width: 50px;
-  height: 50px;
-  border-radius: 10px;
+  width: 60px;
+  height: 60px;
+  border-radius: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 1.5rem;
   font-weight: bold;
+  transition: all 0.3s ease;
 }
 
 .question1-correct {
-  background-color: #B3E3D3;
-  border-color: #003F9180;
+  background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
   color: white;
+  box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
 }
 
 .question1-incorrect {
-  background-color: #FF6B6B99;
-  border-color: #003F9180;
+  background: linear-gradient(135deg, #ff6b6b 0%, #ff5252 100%);
   color: white;
+  box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
 }
 
 /* Submit and Next Button */
@@ -515,4 +562,86 @@
   margin: 0.5rem 0 0;
   font-size: 0.85rem;
   line-height: 1.4;
+}
+
+.question1-explanation-card {
+  background: white;
+  border-radius: 15px;
+  padding: 30px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin: 20px auto;
+  max-width: 600px;
+}
+
+.question1-explanation-card h4 {
+  color: #003F91;
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.question1-answer-value {
+  background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+  color: white;
+  font-size: 2rem;
+  font-weight: bold;
+  padding: 15px 30px;
+  border-radius: 50px;
+  margin: 20px auto;
+  display: inline-block;
+  box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+}
+
+.question1-explanation-content {
+  text-align: center;
+  padding: 20px 0;
+}
+
+.question1-explanation-title {
+  color: #2c3e50;
+  font-size: 1.4rem;
+  margin-bottom: 10px;
+}
+
+.question1-explanation-formula {
+  color: #003F91;
+  font-size: 1.6rem;
+  font-weight: 600;
+  margin-bottom: 25px;
+  padding: 15px;
+  background: #f8f9fa;
+  border-radius: 10px;
+  display: inline-block;
+}
+
+.question1-explanation-calculation {
+  background: #f8f9fa;
+  border-radius: 12px;
+  padding: 20px;
+  margin: 0 auto;
+  max-width: 400px;
+}
+
+.question1-calc-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  font-size: 1.2rem;
+  color: #2c3e50;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.question1-calc-row:last-child {
+  border-bottom: none;
+}
+
+.question1-calc-result {
+  margin-top: 15px;
+  font-weight: 600;
+  color: #003F91;
+  font-size: 1.4rem;
+  border-top: 2px solid #003F91;
+  border-bottom: none;
+  padding-top: 15px;
 } 

@@ -8,6 +8,8 @@ const InvestmentCalculator = () => {
   const [investmentPeriod, setInvestmentPeriod] = useState(10);
   const [rate, setRate] = useState(8);
   const [futureValue, setFutureValue] = useState(null);
+  const [hasCalculated, setHasCalculated] = useState(false);
+  const [chartData, setChartData] = useState(null);
   const chartRef = useRef(null);
   const chartInstance = useRef(null);
 
@@ -15,7 +17,9 @@ const InvestmentCalculator = () => {
     return parseFloat(value).toLocaleString('en-GB');
   };
 
-  const renderChart = (data = []) => {
+  const renderChart = (data) => {
+    if (!chartRef.current) return;
+    
     const ctx = chartRef.current.getContext('2d');
     
     if (chartInstance.current) {
@@ -119,25 +123,25 @@ const InvestmentCalculator = () => {
     }
 
     setFutureValue(currentValue.toFixed(2));
-    renderChart(data);
+    setHasCalculated(true);
+    setChartData(data);
   };
 
   useEffect(() => {
-    // Initial calculation on mount
-    calculate();
-    
+    // Render chart when data is available and component is mounted
+    if (hasCalculated && chartData) {
+      renderChart(chartData);
+    }
+  }, [chartData, hasCalculated]);
+
+  useEffect(() => {
     // Cleanup chart instance on unmount
     return () => {
       if (chartInstance.current) {
         chartInstance.current.destroy();
       }
     };
-  }, []); // Empty dependency array for initial mount only
-
-  // Recalculate when inputs change
-  useEffect(() => {
-    calculate();
-  }, [initialInvestment, monthlyContribution, investmentPeriod, rate]);
+  }, []);
 
   const handleInputChange = (setter) => (e) => {
     const value = parseFloat(e.target.value);
@@ -154,7 +158,7 @@ const InvestmentCalculator = () => {
             <label htmlFor="initialInvestment">Initial Investment (£):</label>
             <input
               type="number"
-              placeholder=""
+              placeholder="0"
               id="initialInvestment"
               value={initialInvestment}
               onChange={handleInputChange(setInitialInvestment)}
@@ -165,7 +169,7 @@ const InvestmentCalculator = () => {
             <label htmlFor="monthlyContribution">Monthly Contribution (£):</label>
             <input
               type="number"
-              placeholder=""
+              placeholder="500"
               id="monthlyContribution"
               value={monthlyContribution}
               onChange={handleInputChange(setMonthlyContribution)}
@@ -176,7 +180,7 @@ const InvestmentCalculator = () => {
             <label htmlFor="investmentPeriod">Investment Period (Years):</label>
             <input
               type="number"
-              placeholder=""
+              placeholder="10"
               id="investmentPeriod"
               value={investmentPeriod}
               onChange={handleInputChange(setInvestmentPeriod)}
@@ -187,7 +191,7 @@ const InvestmentCalculator = () => {
             <label htmlFor="rate">Interest Rate (%):</label>
             <input
               type="number"
-              placeholder=""
+              placeholder="8"
               id="rate"
               value={rate}
               onChange={handleInputChange(setRate)}
@@ -197,20 +201,22 @@ const InvestmentCalculator = () => {
           <button onClick={calculate} className="calculate-button">Calculate</button>
         </div>
 
-        <div className="calculator-chart">
-          <canvas ref={chartRef} width="400" height="200"></canvas>
-        </div>
-      </div>
+        {hasCalculated && (
+          <>
+            <div className="calculator-chart">
+              <canvas ref={chartRef} width="400" height="200"></canvas>
+            </div>
 
-      {futureValue && (
-        <div className="result">
-          <h4>Future Value:</h4>
-          <div className="result-box">
-            <p>At <strong>{rate}%</strong> return rate:</p>
-            <span className="future-value">£{formatNumber(futureValue)}</span>
-          </div>
-        </div>
-      )}
+            <div className="result">
+              <h4>Future Value:</h4>
+              <div className="result-box">
+                <p>At <strong>{rate}%</strong> return rate:</p>
+                <span className="future-value">£{formatNumber(futureValue)}</span>
+              </div>
+            </div>
+          </>
+        )}
+      </div>
     </div>
   );
 };

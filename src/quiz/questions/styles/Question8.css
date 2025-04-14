@@ -102,7 +102,8 @@
 
 .question8-points-section h3 {
   margin: 0;
-  font-size: 2.3rem;
+  font-size: 1.8rem;
+  color: #003F91;
   line-height: 1;
 }
 
@@ -123,10 +124,13 @@
 
 /* Task Image */
 .question8-task-image {
-  width: 300px;
-  margin: 20px 0;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 600px;
+  height: auto;
+  margin: 20px auto;
+  display: block;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 /* Question Section */
@@ -142,6 +146,13 @@
   margin-bottom: 10px;
 }
 
+.question8-question-section p {
+  font-size: 1.7rem;
+  color: #333;
+  margin: 15px 0;
+  line-height: 1.5;
+}
+
 /* Multiple Choice Section */
 .question8-choices-container {
   display: flex;
@@ -152,11 +163,11 @@
 
 .question8-choice-button {
   background-color: #B8CEF0;
-  padding: 10px 20px;
+  padding: 15px 20px;
   border: none;
   border-radius: 10px;
   color: #1e3a8a;
-  font-size: 1.3rem;
+  font-size: 1.5rem;
   cursor: pointer;
   transition: background-color 0.3s;
 }
@@ -171,8 +182,9 @@
 }
 
 .question8-team-answer-section h4 {
-  text-align: center;
-  color: #000;
+  font-size: 1.8rem;
+  color: #003F91;
+  margin-bottom: 10px;
 }
 
 .question8-team-answer-container {
@@ -189,9 +201,8 @@
 }
 
 .question8-team-answer-box p {
-  margin-bottom: 5px;
-  font-weight: bold;
-  color: #000;
+  font-size: 1.5rem;
+  margin: 5px 0;
 }
 
 .question8-answer-select {
@@ -207,58 +218,88 @@
 .question8-result-section {
   text-align: center;
   margin-top: 20px;
+  padding: 20px;
 }
 
 .question8-result-section h4 {
-  color: #000;
+  font-size: 2rem;
+  color: #003F91;
+  margin-bottom: 15px;
 }
 
-.question8-correct-answer {
-  display: inline-block;
+.question8-answer-value {
+  display: block;
   font-size: 1.8rem;
   font-weight: bold;
-  color: #000;
-  margin: 20px;
-  background-color: #B3E3D3;
+  color: #fff;
+  margin: 0 auto 30px;
+  background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
   border-radius: 50px;
-  width: 25%;
-  padding: 15px;
+  padding: 15px 30px;
   text-align: center;
+  box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+  max-width: fit-content;
 }
 
 .question8-toggle-detailed-answer {
-  color: #2196F3;
+  display: block;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border: none;
+  border-radius: 30px;
+  padding: 12px 25px;
+  margin: 0 auto;
+  align-items: center;
+  gap: 8px;
+  font-size: 1.1rem;
+  color: #003F91;
   cursor: pointer;
-  text-decoration: none;
-  margin: 15px 0;
-  font-weight: 500;
-  display: inline-block;
-  padding: 10px 20px;
-  background: #e3f2fd;
-  border-radius: 25px;
   transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  -webkit-user-select: none;
+  user-select: none;
 }
 
 .question8-toggle-detailed-answer:hover {
-  background: #bbdefb;
+  background: linear-gradient(135deg, #e9ecef 0%, #dee2e6 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.question8-toggle-detailed-answer:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.question8-toggle-detailed-answer[data-expanded="true"]::before {
+  content: '▼';
+  transform: rotate(180deg);
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+
+.question8-toggle-detailed-answer[data-expanded="false"]::before {
+  content: '▼';
+  display: inline-block;
+  transition: transform 0.3s ease;
 }
 
 .question8-expanded-answer {
-  background-color: #ffffff;
-  padding: 30px;
+  background: white;
   border-radius: 15px;
-  margin: 20px 0;
-  border: none;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  text-align: left;
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: all 0.5s ease-in-out;
+  margin: 0 auto;
+  max-width: 800px;
 }
 
-.question8-expanded-answer h4 {
-  color: #003F91;
-  font-size: 1.5rem;
-  margin-bottom: 20px;
-  padding-bottom: 10px;
-  border-bottom: 2px solid #e3f2fd;
+.question8-expanded-answer.show {
+  max-height: 2000px;
+  opacity: 1;
+  padding: 25px;
+  margin: 20px auto;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .question8-explanation p {
